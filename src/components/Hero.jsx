@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Calendar, MapPin, Building2, ArrowRight, Download, Clock, ShieldCheck, Award, Users } from "lucide-react";
-import HeroIsometric3D from "./HeroIsometric3D";
+import HeroIllustration from "./HeroIllustration";
 import { downloadFullConferenceICS } from "../utils/icsGenerator";
 
 export default function Hero({ onExploreSchedule, onOpenPocketSchedule }) {
@@ -119,8 +119,8 @@ export default function Hero({ onExploreSchedule, onOpenPocketSchedule }) {
           </button>
         </div>
 
-        {/* 3D Isometric Connected Platform Component */}
-        <HeroIsometric3D />
+        {/* Lightweight Medical Infographic Illustration */}
+        <HeroIllustration />
 
         {/* Countdown Timer Strip */}
         <div className="max-w-lg mx-auto mb-12">
