@@ -16,24 +16,28 @@ Your task is to generate a comprehensive, publication-ready suite of formal invi
 You must strictly ground all generated invitation materials in the following factual details:
 
 - **Conference Title**: RAILMED TPJ CME 2026
-- **Theme**: Annual Continuing Medical Education Conclave — Advancing Clinical Excellence in Railway Healthcare
+- **Theme**: Annual Continuing Medical Education Conclave covering various topics of interest on NCD including Cancer, Diabetes and Hypertension which will help us keep abreast with modern updates and thereby improve patient care.
 - **Organizing Body**: Indian Railway Medical Service Association (Southern Railway)
 - **Host Institution**: Divisional Railway Hospital, Golden Rock (GOC), Tiruchirappalli
 - **Dates**: 19th & 20th September 2026 (Saturday & Sunday)
-- **Venue**: Main Auditorium, Divisional Railway Hospital Campus, Golden Rock, Tiruchirappalli (TPJ), Tamil Nadu – 620004
+- **Venue**: Cauvery Meeting Hall, Divisional Railway Hospital Campus, Golden Rock, Tiruchirappalli (TPJ), Tamil Nadu – 620004
 - **Official Website**: https://railmed-tpj-2026.vercel.app
 - **Contact & Helpdesk**: railmed.tpj2026@gmail.com | Phone: +91 94868 00000 | Reception: 0431-2460555
 
+#### Key Leadership & Patrons:
+- **Dr S Kalyani**, Principal Chief Medical Director / Southern Railway (Presidential Address & Patron)
+- **Shri K M Sathiyia Rathan**, Distinguished Leadership & Conclave Patron
+
 #### Key Scientific Highlights:
 1. **Memorial Orations**:
-   - **Dr Sai Dhandapani Memorial Oration** (Day 1, 19th Sept):
-     - *Topic*: "Management of fever of unknown origin & interesting cases"
-     - *Orator*: Dr King Gandhi, MD, Sr Consultant Physician, Tiruchirappalli
-     - *Chairperson*: Dr P. Sankar, ACHD / GOC
-   - **Dr Rahulan Memorial Oration** (Day 2, 20th Sept):
-     - *Topic*: "Incretins: A therapeutic milestone"
-     - *Orator*: Dr C. Anbarasu, MD, FRCP, Director of Diabetology, Apollo Hospital, Chennai
-     - *Chairperson*: Dr P. Muralikrishna, ACMS / PGT
+   - **Dr Sai Dhandapani Memorial Oration** (Day 1, 19th Sept, 09:00 - 09:30 hrs):
+     - *Topic*: "Camouflage of dyspepsia"
+     - *Orator*: Dr R. King Gandhi, ACHD / Surgeon, Railway Hospital, Perambur (PER)
+     - *Chairperson*: Dr S Kalyani, Principal Chief Medical Director / Southern Railway
+   - **Dr Rahulan Memorial Oration** (Day 2, 20th Sept, 14:00 - 14:45 hrs):
+     - *Topic*: "Role of Family Physician in Metabolic diseases"
+     - *Orator*: Dr P. S. Nazneen, Sr DMO, Railway Hospital, Golden Rock (GOC)
+     - *Chairperson*: Dr U. K. Perumal, PCMD PER
 
 2. **Multidisciplinary Panel Conclaves**:
    - **Panel 1: Multimodal Cancer Management** (Day 1, 11:30 - 12:30 hrs)
@@ -60,30 +64,30 @@ Please generate the following 4 complete, beautifully formatted invitation docum
 
 #### 1. Formal VIP / Chief Guest / Dignitary Invitation Letter
 - **Format**: Official institutional letterhead style.
-- **Includes**: Formal salutation, invitation from the Organizing Committee and Indian Railway Medical Service Association (Southern Railway), introduction of the event's academic scope, special request for their esteemed presence / address, schedule details, and RSVP contacts.
+- **Includes**: Formal salutation, invitation from the Organizing Committee and Indian Railway Medical Service Association (Southern Railway), introduction of the event's academic scope on NCD updates, special request for their esteemed presence / address, schedule details, and RSVP contacts.
 - **Tone**: Highly respectful, dignified, and executive.
 
 #### 2. Comprehensive Delegate Invitation & 4-Page Foldable Brochure Text
-- **Page 1 (Cover)**: Event title, organizing body insignia text, dates, venue, and welcoming theme headline.
-- **Page 2 (Welcome Message & Objectives)**: Message from the Organizing Chairperson & Secretary emphasizing the importance of continuing medical education for railway medical officers and clinicians.
+- **Page 1 (Cover)**: Event title, organizing body insignia text, dates, venue (Cauvery Meeting Hall), and theme headline ("Various topics of interest on NCD including Cancer, Diabetes and Hypertension which will help us keep abreast with modern updates and thereby improve patient care").
+- **Page 2 (Welcome Message & Objectives)**: Message from the Organizing Chairperson & Secretary with blessings from Dr S Kalyani (Principal Chief Medical Director / Southern Railway) and Shri K M Sathiyia Rathan.
 - **Page 3 (Scientific Highlights & Program At-a-Glance)**:
   - Both Memorial Orations with speakers and topics.
   - Multidisciplinary Cancer & Diabetes panel overviews.
   - Overview of key tracks: Oncology, Cardiology, Diabetology, Pulmonology/OSA, Sleep Disorders, and Surgical Innovations.
 - **Page 4 (Delegate Information, Transit & Registration Details)**:
-  - Venue connectivity: Tiruchirappalli Junction (TPJ), Golden Rock (GOC), Trichy International Airport (TRZ).
+  - Venue connectivity: Cauvery Meeting Hall, Golden Rock (GOC), Tiruchirappalli Junction (TPJ), Trichy International Airport (TRZ).
   - CME credit points / participation certificate details.
   - Organizing committee roster (Patrons, Organizing Chair, Scientific Convenor).
   - RSVP and Helpdesk information.
 
 #### 3. High-Impact Broadcast Email & WhatsApp Announcement
-- **Email Version**: Clean subject lines (3 options), personalized greeting, concise bulleted clinical highlights, clear Call-to-Action (CTA) button links to the website and schedule, and contact footer.
+- **Email Version**: Clean subject lines (3 options), personalized greeting, concise bulleted clinical highlights on NCD updates, clear Call-to-Action (CTA) button links to the website and schedule, and contact footer.
 - **WhatsApp / SMS Version**: Emojis, bold highlights, concise scannable bullet points, and instant link to timetable.
 
 #### 4. Graphic Design Specification & Layout Brief (for Canva / Figma / Adobe InDesign Designers)
 - Color palette specifications (e.g., Deep Railway Blue `#1d4ed8`, Medical Cyan `#06b6d4`, Gold Oration Accent `#f59e0b`, Clean Slate `#f8fafc`).
 - Typography hierarchy recommendations (Headings, Subheadings, Body, Monospace timestamps).
-- Imagery and iconography suggestions (Stethoscope, Caduceus, Railway Hospital Auditorium, 3D connected network nodes).
+- Imagery and iconography suggestions (Stethoscope, Caduceus, Cauvery Meeting Hall, Railway Hospital Campus).
 - Print dimension specifications (A4 Folded / Trifold / Invitation Card 5"x7").
 
 ---

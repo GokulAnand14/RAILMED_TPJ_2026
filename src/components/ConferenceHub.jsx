@@ -670,7 +670,7 @@ export default function ConferenceHub({
 
                   {/* Action */}
                   <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                    <span className="text-xs text-slate-500">Main Auditorium, GOC</span>
+                    <span className="text-xs text-slate-500">Cauvery Meeting Hall, GOC</span>
                     <button
                       onClick={() => {
                         const mockSession = {
@@ -681,7 +681,7 @@ export default function ConferenceHub({
                           endTime: oration.time.split(" - ")[1].replace(" hrs", "").replace(".", ":"),
                           speaker: { name: oration.orator.name, designation: oration.orator.designation, institution: oration.orator.hospital },
                           chairpersons: [oration.chairperson],
-                          location: "Main Auditorium, Railway Hospital, Golden Rock / TPJ",
+                          location: "Cauvery Meeting Hall, Divisional Railway Hospital, Golden Rock / TPJ",
                           description: oration.abstract,
                         };
                         downloadSessionICS(mockSession);
@@ -780,7 +780,7 @@ export default function ConferenceHub({
                   </div>
 
                   <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                    <span className="text-xs text-slate-500">Main Auditorium, GOC</span>
+                    <span className="text-xs text-slate-500">Cauvery Meeting Hall, GOC</span>
                     <button
                       onClick={() => {
                         const mockSession = {
@@ -791,7 +791,7 @@ export default function ConferenceHub({
                           endTime: panel.time.split(" - ")[1].replace(" hrs", "").replace(".", ":"),
                           moderator: panel.moderator,
                           panelists: panel.panelists,
-                          location: "Main Auditorium, Railway Hospital, Golden Rock / TPJ",
+                          location: "Cauvery Meeting Hall, Divisional Railway Hospital, Golden Rock / TPJ",
                           description: panel.theme,
                         };
                         downloadSessionICS(mockSession);

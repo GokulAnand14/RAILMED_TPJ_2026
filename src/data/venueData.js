@@ -1,9 +1,9 @@
 export const venueData = {
   city: "Tiruchirappalli (Trichy / TPJ)",
   state: "Tamil Nadu, India",
-  venueName: "Railway Hospital Auditorium & Convention Hall",
+  venueName: "Cauvery Meeting Hall, Divisional Railway Hospital",
   campus: "Golden Rock (GOC) / Tiruchirappalli Railway Division",
-  address: "Railway Colony, Golden Rock, Tiruchirappalli, Tamil Nadu 620004",
+  address: "Cauvery Meeting Hall, Railway Colony, Golden Rock, Tiruchirappalli, Tamil Nadu 620004",
   dates: "19th & 20th September 2026",
   coordinates: {
     lat: 10.7852,

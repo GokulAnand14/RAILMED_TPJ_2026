@@ -43,7 +43,7 @@ export default function HeroIllustration() {
             Zonal Medical Conclave
           </h4>
           <p className="text-[11px] text-blue-100 mt-1">
-            Golden Rock • Tiruchirappalli
+            Cauvery Meeting Hall • Golden Rock, Trichy
           </p>
         </div>
 

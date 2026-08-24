@@ -278,16 +278,29 @@ export const facultyMembers = [
 
   // Senior Chairpersons & Railway Leadership
   {
+    id: "f-sathiyia-rathan",
+    name: "Shri K M Sathiyia Rathan",
+    role: "Distinguished Leadership & Patron",
+    designation: "Distinguished Dignitary",
+    institution: "Southern Railway",
+    category: "Railway Leadership",
+    specialty: "Administration & Healthcare Patron",
+    topics: ["Inauguration Address & Conclave Patron"],
+    sessionDay: "Day 1 (09:30 - 10:15 hrs)",
+    avatarText: "SR",
+    badgeColor: "bg-blue-500/20 text-blue-300 border-blue-500/40"
+  },
+  {
     id: "f-kalyani",
-    name: "Dr Kalyani S",
+    name: "Dr S Kalyani",
     role: "Session Chairperson & Patron",
-    designation: "PCMD SR (Principal Chief Medical Director, Southern Railway)",
+    designation: "Principal Chief Medical Director / Southern Railway",
     institution: "Southern Railway Headquarters",
     category: "Railway Leadership",
     specialty: "Chief Medical Administration",
     topics: ["Chair: Dr Sai Dhandapani Oration"],
     sessionDay: "Day 1 (09:00 - 09:30 hrs)",
-    avatarText: "KS",
+    avatarText: "SK",
     badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/40"
   },
   {

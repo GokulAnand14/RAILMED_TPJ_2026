@@ -32,7 +32,7 @@ export function downloadSessionICS(session) {
     speakerDetails += `Chairpersons: ${session.chairpersons.map(c => `${c.name} (${c.designation})`).join(", ")}\\n`;
   }
 
-  const description = `${session.description || session.topic}\\n\\n${speakerDetails}\\nEvent: RAILMED TPJ CME 2026\\nVenue: ${session.location || "Railway Hospital Auditorium, Golden Rock / TPJ"}`;
+  const description = `${session.description || session.topic}\\n\\n${speakerDetails}\\nEvent: RAILMED TPJ CME 2026\\nVenue: ${session.location || "Cauvery Meeting Hall, Divisional Railway Hospital, Golden Rock / TPJ"}`;
   
   const icsContent = [
     "BEGIN:VCALENDAR",
@@ -47,7 +47,7 @@ export function downloadSessionICS(session) {
     `DTEND:${dtEnd}`,
     `SUMMARY:RAILMED 2026: ${session.topic.replace(/"/g, "'")}`,
     `DESCRIPTION:${description}`,
-    `LOCATION:${session.location || "Railway Hospital Auditorium, Golden Rock, Tiruchirappalli"}`,
+    `LOCATION:${session.location || "Cauvery Meeting Hall, Divisional Railway Hospital, Golden Rock, Tiruchirappalli"}`,
     "STATUS:CONFIRMED",
     "END:VEVENT",
     "END:VCALENDAR"
@@ -79,7 +79,7 @@ export function downloadFullConferenceICS() {
     "DTEND:20260919T180000",
     "SUMMARY:RAILMED TPJ CME 2026 - Day 1",
     "DESCRIPTION:Day 1 of RAILMED TPJ CME 2026 - Dr Sai Dhandapani Oration, Immunotherapy in Malignancy, Cancer Management Panel, OSA Surgery, Cardiology & Industry Symposia.",
-    "LOCATION:Divisional Railway Hospital Auditorium, Golden Rock (GOC), Tiruchirappalli",
+    "LOCATION:Cauvery Meeting Hall, Divisional Railway Hospital, Golden Rock (GOC), Tiruchirappalli",
     "STATUS:CONFIRMED",
     "END:VEVENT",
     "BEGIN:VEVENT",
@@ -89,7 +89,7 @@ export function downloadFullConferenceICS() {
     "DTEND:20260920T170000",
     "SUMMARY:RAILMED TPJ CME 2026 - Day 2",
     "DESCRIPTION:Day 2 of RAILMED TPJ CME 2026 - Dr Rahulan Oration, Elevated Blood Pressure, Metabolic Renaissance, Insulin masterclass, Future Frontiers in Diabetes, OSA CPAP & Complications Panel.",
-    "LOCATION:Divisional Railway Hospital Auditorium, Golden Rock (GOC), Tiruchirappalli",
+    "LOCATION:Cauvery Meeting Hall, Divisional Railway Hospital, Golden Rock (GOC), Tiruchirappalli",
     "STATUS:CONFIRMED",
     "END:VEVENT",
     "END:VCALENDAR"

@@ -113,7 +113,7 @@ export default function OrationsSpotlight() {
 
               {/* Action Button */}
               <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
-                <span className="text-xs text-slate-500 font-medium">Main Auditorium, GOC</span>
+                <span className="text-xs text-slate-500 font-medium">Cauvery Meeting Hall, GOC</span>
                 <button
                   onClick={() => {
                     const mockSession = {
@@ -128,7 +128,7 @@ export default function OrationsSpotlight() {
                         institution: oration.orator.hospital,
                       },
                       chairpersons: [oration.chairperson],
-                      location: "Main Auditorium, Railway Hospital, Golden Rock / TPJ",
+                      location: "Cauvery Meeting Hall, Divisional Railway Hospital, Golden Rock / TPJ",
                       description: oration.abstract,
                     };
                     downloadSessionICS(mockSession);

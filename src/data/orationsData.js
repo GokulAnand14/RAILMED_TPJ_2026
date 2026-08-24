@@ -14,8 +14,8 @@ export const orationsList = [
       avatarText: "KG",
     },
     chairperson: {
-      name: "Dr Kalyani S",
-      designation: "PCMD SR (Principal Chief Medical Director, Southern Railway)",
+      name: "Dr S Kalyani",
+      designation: "Principal Chief Medical Director / Southern Railway",
       hospital: "Southern Railway Headquarters",
     },
     abstract: "Dyspepsia represents one of the most frequent yet deceptively complex presentations in clinical practice. This memorial oration examines the critical masqueraders of dyspepsia—from occult coronary syndromes, biliary and pancreatic neoplasms, to early gastric malignancies. A structured surgical and clinical perspective is presented to empower physicians to avoid diagnostic pitfalls and initiate timely referrals.",

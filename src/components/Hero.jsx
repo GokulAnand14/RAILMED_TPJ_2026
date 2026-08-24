@@ -70,8 +70,8 @@ export default function Hero({ onExploreSchedule, onOpenPocketSchedule }) {
         </h1>
 
         {/* Subtitle */}
-        <p className="text-base sm:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed mb-8 font-normal">
-          The Annual Continuing Medical Education Conference uniting clinical specialists, surgeons, and railway medical leaders.
+        <p className="text-sm sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed mb-8 font-normal">
+          Annual Continuing Medical Education Conclave covering various topics of interest on NCD including Cancer, Diabetes and Hypertension which will help us keep abreast with modern updates and thereby improve patient care.
         </p>
 
         {/* Meta badges: Date, Venue, Location */}
@@ -88,7 +88,7 @@ export default function Hero({ onExploreSchedule, onOpenPocketSchedule }) {
 
           <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/90 border border-slate-200 shadow-2xs backdrop-blur-xs">
             <Building2 className="w-4 h-4 text-blue-600" />
-            <span className="font-semibold text-slate-800">Divisional Railway Hospital Campus, GOC</span>
+            <span className="font-semibold text-slate-800">Cauvery Meeting Hall, Railway Hospital Campus, GOC</span>
           </div>
         </div>
 

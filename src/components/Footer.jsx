@@ -110,7 +110,7 @@ export default function Footer({ onOpenPocketSchedule }) {
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
                 <span>
-                  Divisional Railway Hospital Auditorium, Golden Rock (GOC), Tiruchirappalli, Tamil Nadu - 620004
+                  Cauvery Meeting Hall, Divisional Railway Hospital, Golden Rock (GOC), Tiruchirappalli, Tamil Nadu - 620004
                 </span>
               </div>
               <div className="flex items-center gap-2">

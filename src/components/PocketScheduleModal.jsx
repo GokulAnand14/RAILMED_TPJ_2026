@@ -325,7 +325,7 @@ export default function PocketScheduleModal({ isOpen, onClose }) {
         {/* Modal Footer */}
         <div className="p-3 sm:p-4 border-t border-slate-200 bg-slate-50/90 flex items-center justify-between no-print px-4 sm:px-6 flex-shrink-0">
           <span className="text-xs text-slate-500">
-            Divisional Railway Hospital Auditorium • Golden Rock (GOC), Tiruchirappalli
+            Cauvery Meeting Hall • Divisional Railway Hospital, Golden Rock (GOC), Tiruchirappalli
           </span>
           <button
             onClick={onClose}

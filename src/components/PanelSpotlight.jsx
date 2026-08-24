@@ -208,7 +208,7 @@ export default function PanelSpotlight() {
                       endTime: panel.time.split(" - ")[1].replace(" hrs", "").replace(".", ":"),
                       moderator: panel.moderator,
                       panelists: panel.panelists,
-                      location: "Main Auditorium, Railway Hospital, Golden Rock / TPJ",
+                      location: "Cauvery Meeting Hall, Divisional Railway Hospital, Golden Rock / TPJ",
                       description: panel.theme,
                     };
                     downloadSessionICS(mockSession);

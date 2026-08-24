@@ -69,8 +69,8 @@ export default function ScheduleExplorer({
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-sans">
               Conference Agenda
             </h2>
-            <p className="text-sm sm:text-base text-slate-600 mt-2 max-w-xl">
-              Explore Day 1 and Day 2 sessions, filter by medical specialty, and search faculty, topics, or chairpersons.
+            <p className="text-xs sm:text-sm text-slate-600 mt-2 max-w-2xl leading-relaxed">
+              Explore various topics of interest on NCD including Cancer, Diabetes and Hypertension which will help us keep abreast with modern updates and thereby improve patient care.
             </p>
           </div>
 
