@@ -1,15 +1,20 @@
-import React from "react";
-import { MessageSquare, Users, Clock, Calendar, CheckCircle2 } from "lucide-react";
-import { downloadSessionICS } from "../utils/icsGenerator";
+import React, { useState } from "react";
+import { MessageSquare, Users, Clock, Calendar, CheckCircle2, ExternalLink } from "lucide-react";
+import { openGoogleCalendar } from "../utils/googleCalendar";
 
 export default function PanelSpotlight() {
+  const [activePanelIdx, setActivePanelIdx] = useState(0);
+
   const panels = [
     {
       id: "panel-cancer",
       day: 1,
       date: "Saturday, 19th September 2026",
       time: "11:30 - 12:30 hrs",
-      title: "Panel discussions on Cancer management",
+      startTime: "11:30",
+      endTime: "12:30",
+      topic: "Panel Discussions on Cancer Management",
+      title: "Panel Discussions on Cancer Management",
       theme: "Multimodal Oncology Protocols, Early Detection in Health Units, and Streamlined Referral Networks",
       moderator: {
         name: "Dr C. Santhosh",
@@ -59,7 +64,10 @@ export default function PanelSpotlight() {
       day: 2,
       date: "Sunday, 20th September 2026",
       time: "15:30 - 16:15 hrs",
-      title: "Panel discussion on \"Diabetes and early detection of complications\"",
+      startTime: "15:30",
+      endTime: "16:15",
+      topic: "Panel Discussion on Diabetes and Early Detection of Complications",
+      title: "Panel Discussion on \"Diabetes and Early Detection of Complications\"",
       theme: "Target Organ Surveillance: Diabetic Retinopathy, Nephropathy, Diabetic Foot, and Peripheral Neuropathy",
       moderator: {
         name: "Dr Arun",
@@ -94,134 +102,144 @@ export default function PanelSpotlight() {
     },
   ];
 
+  const currentPanel = panels[activePanelIdx];
+
   return (
-    <section id="panels" className="py-20 bg-white border-b border-slate-200">
+    <section id="panels" className="py-12 bg-[#040e24] border-b border-amber-500/20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 border border-purple-200/80 text-purple-700 text-xs font-semibold uppercase tracking-wider mb-4">
-            <MessageSquare className="w-3.5 h-3.5 text-purple-600" />
-            <span>Interactive Conclaves</span>
+        <div className="text-center max-w-3xl mx-auto mb-10">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-500/15 border border-blue-500/30 text-blue-300 text-xs font-bold uppercase tracking-wider mb-3 font-cinzel">
+            <MessageSquare className="w-3.5 h-3.5 text-blue-400" />
+            <span>Multidisciplinary Clinical Conclaves</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-sans mb-4">
-            Clinical Panel Discussions
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black font-cinzel text-white tracking-tight">
+            High-Impact <span className="text-gold-gradient">Panel Discussions</span>
           </h2>
-
-          <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-            Multi-specialty deliberations uniting oncologists, surgeons, diabetologists, and railway medical officers to discuss complex diagnostic workflows.
+          <p className="text-slate-300 text-xs sm:text-base mt-2 leading-relaxed">
+            Multi-specialty consensus roundtables addressing pressing clinical challenges across Indian Railways healthcare delivery.
           </p>
         </div>
 
-        {/* Panels Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {panels.map((panel, idx) => (
-            <div
-              key={panel.id}
-              className="rounded-2xl bg-white border border-purple-200/90 p-6 sm:p-8 shadow-xs hover:shadow-md hover:border-purple-300 transition-all flex flex-col justify-between"
-            >
-              <div>
-                {/* Header Badge */}
-                <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
-                  <span className="px-2.5 py-1 rounded-lg text-xs font-bold bg-purple-50 text-purple-700 border border-purple-200 uppercase">
-                    Panel Conclave #{idx + 1} • Day {panel.day}
-                  </span>
-                  <div className="flex items-center gap-1.5 text-xs font-mono text-slate-600 bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-200">
-                    <Clock className="w-3.5 h-3.5 text-purple-600" />
-                    <span>{panel.time}</span>
-                  </div>
-                </div>
+        {/* Panel Switcher Tabs */}
+        <div className="flex justify-center mb-8">
+          <div className="inline-flex p-1.5 rounded-2xl bg-[#030917] border border-amber-500/30 shadow-lg">
+            {panels.map((p, idx) => (
+              <button
+                key={p.id}
+                onClick={() => setActivePanelIdx(idx)}
+                className={`px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold font-cinzel transition-all cursor-pointer ${
+                  activePanelIdx === idx
+                    ? "bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-md shadow-amber-500/20"
+                    : "text-slate-400 hover:text-white"
+                }`}
+              >
+                <span>Panel {idx + 1}: {idx === 0 ? "Cancer Care" : "Diabetes Complications"}</span>
+              </button>
+            ))}
+          </div>
+        </div>
 
-                {/* Title */}
-                <h3 className="text-2xl font-bold text-slate-900 tracking-tight mb-2">
-                  {panel.title}
-                </h3>
+        {/* Active Panel Details Card */}
+        <div className="royal-card p-6 sm:p-10 border-amber-500/40">
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+            <div className="flex items-center gap-2 text-xs font-bold text-amber-300 bg-amber-500/15 px-3 py-1 rounded-full border border-amber-500/30 font-cinzel">
+              <Calendar className="w-3.5 h-3.5 text-amber-400" />
+              <span>{currentPanel.date}</span>
+            </div>
 
-                <div className="text-xs font-medium text-purple-700 mb-5">
-                  {panel.theme}
-                </div>
+            <div className="flex items-center gap-2 text-xs font-mono font-bold text-amber-300 bg-[#020713] px-3 py-1 rounded-lg border border-amber-500/30">
+              <Clock className="w-3.5 h-3.5 text-amber-400" />
+              <span>{currentPanel.time}</span>
+            </div>
+          </div>
 
-                {/* Moderator Box */}
-                <div className="p-4 rounded-xl bg-purple-50/70 border border-purple-100 mb-5">
-                  <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-purple-700 mb-1">
-                    Panel Moderator
-                  </div>
-                  <div className="text-base font-bold text-slate-900">
-                    {panel.moderator.name}
-                  </div>
-                  <div className="text-xs text-purple-700">
-                    {panel.moderator.designation} • {panel.moderator.institution}
-                  </div>
-                </div>
+          <h3 className="text-2xl sm:text-3xl font-extrabold font-cinzel text-white text-gold-light mb-3">
+            {currentPanel.title}
+          </h3>
 
-                {/* Panelists */}
-                <div className="mb-6">
-                  <div className="text-xs font-bold uppercase tracking-wider text-slate-500 font-mono mb-3">
-                    Expert Panelists:
-                  </div>
-                  <div className="space-y-2">
-                    {panel.panelists.map((p, pIdx) => (
-                      <div
-                        key={pIdx}
-                        className="p-3 rounded-lg bg-slate-50 border border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-1"
-                      >
-                        <div>
-                          <div className="text-xs font-bold text-slate-900">
-                            {p.name}
-                          </div>
-                          <div className="text-[11px] text-blue-700 font-medium">
-                            {p.designation} • {p.institution}
-                          </div>
-                        </div>
-                        <span className="text-[10px] px-2 py-0.5 rounded bg-white text-slate-600 border border-slate-200 self-start sm:self-auto font-medium">
-                          {p.focus}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+          <p className="text-xs sm:text-sm text-slate-300 mb-8 font-medium">
+            {currentPanel.theme}
+          </p>
 
-                {/* Key Deliberations */}
-                <div className="space-y-1.5 mb-6">
-                  <div className="text-xs font-bold uppercase tracking-wider text-slate-500 font-mono">
-                    Core Discussion Focus:
-                  </div>
-                  {panel.points.map((pt, ptIdx) => (
-                    <div key={ptIdx} className="flex items-start gap-2 text-xs text-slate-700">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-purple-600 mt-0.5 flex-shrink-0" />
-                      <span>{pt}</span>
-                    </div>
-                  ))}
-                </div>
+          {/* Moderator Box */}
+          <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#0a1e4a] to-[#040e24] border border-amber-500/40 mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <div className="text-[10px] uppercase tracking-wider font-bold text-amber-400 font-cinzel mb-1">
+                Conclave Moderator
               </div>
-
-              {/* Add to Calendar */}
-              <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                <span className="text-xs text-slate-500">{panel.date}</span>
-                <button
-                  onClick={() => {
-                    const mockSession = {
-                      id: panel.id,
-                      day: panel.day,
-                      topic: panel.title,
-                      startTime: panel.time.split(" - ")[0].replace(".", ":"),
-                      endTime: panel.time.split(" - ")[1].replace(" hrs", "").replace(".", ":"),
-                      moderator: panel.moderator,
-                      panelists: panel.panelists,
-                      location: "Cauvery Meeting Hall, Divisional Railway Hospital, Golden Rock / TPJ",
-                      description: panel.theme,
-                    };
-                    downloadSessionICS(mockSession);
-                  }}
-                  className="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 transition-colors flex items-center gap-1.5"
-                >
-                  <Calendar className="w-3.5 h-3.5 text-purple-600" />
-                  <span>Sync Panel (.ics)</span>
-                </button>
+              <div className="text-lg font-bold text-white font-cinzel">
+                {currentPanel.moderator.name}
+              </div>
+              <div className="text-xs text-amber-300 font-semibold">
+                {currentPanel.moderator.designation} • {currentPanel.moderator.institution}
               </div>
             </div>
-          ))}
+            <span className="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 self-start sm:self-auto font-cinzel">
+              Session Chair & Moderator
+            </span>
+          </div>
+
+          {/* Panelists Grid */}
+          <div className="mb-8">
+            <h4 className="text-xs uppercase font-bold tracking-wider text-amber-400 mb-4 font-cinzel flex items-center gap-2">
+              <Users className="w-4 h-4" />
+              <span>Specialist Panelists</span>
+            </h4>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {currentPanel.panelists.map((panelist, pIdx) => (
+                <div
+                  key={pIdx}
+                  className="p-4 rounded-xl bg-[#030917]/80 border border-slate-700/70 hover:border-amber-400/50 transition-colors"
+                >
+                  <div className="font-bold text-sm text-white font-cinzel">
+                    {panelist.name}
+                  </div>
+                  <div className="text-xs font-semibold text-amber-300 mt-0.5">
+                    {panelist.designation}
+                  </div>
+                  <div className="text-[11px] text-slate-400">
+                    {panelist.institution}
+                  </div>
+                  <div className="mt-2.5 pt-2 border-t border-slate-800 text-[11px] text-slate-300 italic">
+                    Focus: {panelist.focus}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Discussion Agenda Points */}
+          <div className="p-4 rounded-xl bg-[#030917]/60 border border-slate-700/60 mb-6">
+            <div className="text-xs font-bold uppercase tracking-wider text-amber-400 mb-2.5 font-cinzel">
+              Core Clinical Discussion Threads:
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {currentPanel.points.map((pt, ptIdx) => (
+                <div key={ptIdx} className="flex items-start gap-2 text-xs text-slate-300">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 mt-0.5 flex-shrink-0" />
+                  <span>{pt}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Action: Add to Google Calendar */}
+          <div className="flex justify-end pt-4 border-t border-slate-800">
+            <button
+              onClick={() => openGoogleCalendar(currentPanel)}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/30 text-xs font-bold transition-all cursor-pointer group"
+            >
+              <Calendar className="w-3.5 h-3.5 text-amber-400 group-hover:scale-110 transition-transform" />
+              <span>Add Panel to Google Calendar</span>
+              <ExternalLink className="w-3 h-3 text-amber-400/80" />
+            </button>
+          </div>
         </div>
+
       </div>
     </section>
   );

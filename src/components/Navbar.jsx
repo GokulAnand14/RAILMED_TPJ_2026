@@ -1,111 +1,152 @@
 import React, { useState, useEffect } from "react";
-import { Stethoscope, Download, Menu, X, BookmarkCheck } from "lucide-react";
+import { Stethoscope, Download, Menu, X, BookmarkCheck, Calendar, Award, Users, MapPin, Home, FileText } from "lucide-react";
 
-export default function Navbar({ onOpenPocketSchedule, savedCount = 0, onSelectSavedTab }) {
+export default function Navbar({
+  currentPage,
+  onNavigate,
+  onOpenPocketSchedule,
+  savedCount = 0,
+  onSelectSavedTab
+}) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 25);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: "Schedule", href: "#schedule" },
-    { name: "Orations", href: "#orations" },
-    { name: "Panels", href: "#panels" },
-    { name: "Faculty", href: "#faculty" },
-    { name: "Symposia", href: "#symposia" },
-    { name: "Venue", href: "#venue" },
+  const navPages = [
+    { id: "overview", label: "Overview", icon: Home },
+    { id: "schedule", label: "Schedule", icon: Calendar },
+    { id: "orations", label: "Orations & Panels", icon: Award },
+    { id: "faculty", label: "Faculty & Symposia", icon: Users },
+    { id: "venue", label: "Venue & Trichy", icon: MapPin },
+    { id: "invitation", label: "Invitation", icon: FileText },
   ];
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 pt-3 sm:pt-4 px-3 sm:px-6 transition-all duration-300">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <div
-          className={`flex items-center justify-between px-4 sm:px-6 py-2.5 sm:py-3 rounded-full transition-all duration-300 ${
+          className={`flex items-center justify-between px-4 sm:px-6 py-2.5 sm:py-3 rounded-2xl transition-all duration-300 ${
             isScrolled
-              ? "bg-white/90 backdrop-blur-xl border border-slate-200/90 shadow-md shadow-slate-900/5"
-              : "bg-white/80 backdrop-blur-md border border-slate-200/70 shadow-xs"
+              ? "bg-[#040d21]/95 backdrop-blur-xl border border-amber-500/30 shadow-2xl shadow-black/80"
+              : "bg-[#040d21]/85 backdrop-blur-md border border-amber-500/20 shadow-lg shadow-black/40"
           }`}
         >
-          {/* Logo */}
-          <a href="#overview" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-200">
-              <Stethoscope className="w-4 h-4" />
+          {/* Logo & Emblems */}
+          <button
+            onClick={() => onNavigate("overview")}
+            className="flex items-center gap-3 group text-left cursor-pointer"
+          >
+            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-amber-400 via-amber-500 to-amber-700 p-0.5 shadow-md shadow-amber-500/20 group-hover:scale-105 transition-transform">
+              <div className="w-full h-full rounded-full bg-[#040d21] flex items-center justify-center text-amber-400">
+                <Stethoscope className="w-4 h-4" />
+              </div>
             </div>
-            <div className="flex items-center gap-1.5">
-              <span className="font-extrabold text-sm sm:text-base tracking-tight text-slate-900">
-                RAILMED <span className="text-blue-600">2026</span>
-              </span>
-              <span className="hidden sm:inline-flex px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-200/60">
-                TPJ
+            <div className="flex flex-col">
+              <div className="flex items-center gap-1.5">
+                <span className="font-extrabold text-sm sm:text-base tracking-wide text-white font-cinzel">
+                  RAILMED <span className="text-gold-gradient font-black">TPJ 2026</span>
+                </span>
+                <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                  CME
+                </span>
+              </div>
+              <span className="text-[10px] text-slate-400 font-medium hidden sm:block tracking-tight">
+                Southern Railway • Tiruchchirappalli
               </span>
             </div>
-          </a>
+          </button>
 
-          {/* Minimal Clean Smooth Nav Links */}
-          <nav className="hidden md:flex items-center gap-5 lg:gap-6 text-xs sm:text-sm font-medium text-slate-600">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="hover:text-blue-600 transition-colors"
-              >
-                {link.name}
-              </a>
-            ))}
+          {/* Desktop Page Tabs */}
+          <nav className="hidden lg:flex items-center gap-1.5 p-1 rounded-xl bg-[#020713]/70 border border-slate-800/80">
+            {navPages.map((page) => {
+              const Icon = page.icon;
+              const isActive = currentPage === page.id;
+              return (
+                <button
+                  key={page.id}
+                  onClick={() => onNavigate(page.id)}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold font-cinzel transition-all cursor-pointer ${
+                    isActive
+                      ? "bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-md shadow-amber-500/20"
+                      : "text-slate-300 hover:text-white hover:bg-slate-800/50"
+                  }`}
+                >
+                  <Icon className={`w-3.5 h-3.5 ${isActive ? "text-slate-950" : "text-amber-400"}`} />
+                  <span>{page.label}</span>
+                </button>
+              );
+            })}
           </nav>
 
-          {/* Right Actions */}
-          <div className="flex items-center gap-2">
+          {/* Right Action Controls */}
+          <div className="flex items-center gap-2 sm:gap-2.5">
+            {/* Saved bookmarks badge */}
             {savedCount > 0 && (
               <button
                 onClick={onSelectSavedTab}
-                className="flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200 hover:bg-amber-100 transition-colors cursor-pointer"
-                title="View saved sessions"
+                className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/50 hover:bg-amber-500/30 transition-colors cursor-pointer"
+                title="View your saved sessions"
               >
-                <BookmarkCheck className="w-3.5 h-3.5 text-amber-600" />
+                <BookmarkCheck className="w-3.5 h-3.5 text-amber-400" />
                 <span>{savedCount}</span>
               </button>
             )}
 
+            {/* Pocket Timetable Modal Button */}
             <button
               onClick={onOpenPocketSchedule}
-              className="flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white active:scale-95 transition-all shadow-xs cursor-pointer"
+              className="flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 shadow-md shadow-amber-500/20 active:scale-95 transition-all cursor-pointer"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Timetable</span>
             </button>
 
-            {/* Mobile menu toggle */}
+            {/* Mobile menu hamburger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-1.5 rounded-full md:hidden text-slate-600 hover:text-slate-900 hover:bg-slate-100 cursor-pointer"
-              aria-label="Toggle menu"
+              className="p-2 rounded-xl lg:hidden text-slate-300 hover:text-amber-400 hover:bg-slate-800/60 border border-slate-700/50 cursor-pointer"
+              aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Dropdown */}
+        {/* Mobile Dropdown Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden mt-2 p-4 bg-white/95 backdrop-blur-xl rounded-2xl border border-slate-200 shadow-xl animate-in fade-in duration-200">
-            <div className="flex flex-col space-y-2 text-sm font-medium text-slate-700">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors"
-                >
-                  {link.name}
-                </a>
-              ))}
+          <div className="lg:hidden mt-2 p-4 bg-[#040d21]/95 backdrop-blur-2xl rounded-2xl border border-amber-500/30 shadow-2xl animate-in fade-in duration-200">
+            <div className="flex flex-col space-y-1.5 text-sm font-medium text-slate-200">
+              {navPages.map((page) => {
+                const Icon = page.icon;
+                const isActive = currentPage === page.id;
+                return (
+                  <button
+                    key={page.id}
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      onNavigate(page.id);
+                    }}
+                    className={`px-3.5 py-2.5 rounded-xl text-xs font-bold font-cinzel transition-all flex items-center justify-between cursor-pointer ${
+                      isActive
+                        ? "bg-amber-500 text-slate-950 shadow-md font-black"
+                        : "hover:bg-amber-500/15 hover:text-amber-300 text-slate-200"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <Icon className="w-4 h-4" />
+                      <span>{page.label}</span>
+                    </span>
+                    <span className="text-xs">→</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
         )}

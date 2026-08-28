@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from "react";
-import { Search, Calendar, Filter, Bookmark, Layers, X, BookOpen, Download } from "lucide-react";
+import { Search, Calendar, Layers, X, BookOpen, Download, BookmarkCheck, Sparkles, ExternalLink } from "lucide-react";
 import { day1Schedule, day2Schedule, tracks } from "../data/scheduleData";
+import { openGoogleCalendar } from "../utils/googleCalendar";
 import SessionCard from "./SessionCard";
 
 export default function ScheduleExplorer({
@@ -57,173 +58,192 @@ export default function ScheduleExplorer({
   }, [baseSessions, selectedTrack, searchQuery]);
 
   return (
-    <section id="schedule" className="py-20 bg-slate-50/60 border-b border-slate-200">
+    <section id="schedule" className="pt-6 pb-12 bg-[#030917] border-b border-amber-500/20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-blue-700 text-xs font-semibold uppercase tracking-wider mb-3">
-              <Calendar className="w-3.5 h-3.5 text-blue-600" />
-              <span>Scientific Program</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-sans">
-              Conference Agenda
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-600 mt-2 max-w-2xl leading-relaxed">
-              Explore various topics of interest on NCD including Cancer, Diabetes and Hypertension which will help us keep abreast with modern updates and thereby improve patient care.
-            </p>
+        <div className="text-center max-w-3xl mx-auto mb-8">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-bold uppercase tracking-wider mb-2.5 font-cinzel">
+            <Calendar className="w-3.5 h-3.5 text-amber-400" />
+            <span>Scientific Program & Timetable</span>
           </div>
-
-          <button
-            onClick={onOpenPocketSchedule}
-            className="self-start md:self-auto flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-slate-200 hover:border-slate-300 text-slate-700 hover:text-slate-900 font-semibold text-xs transition-all shadow-2xs"
-          >
-            <Download className="w-4 h-4 text-slate-600" />
-            <span>Printable Pocket Schedule</span>
-          </button>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black font-cinzel text-white tracking-tight">
+            Scientific <span className="text-gold-gradient">Schedule</span>
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-300 mt-2 max-w-2xl mx-auto leading-relaxed">
+            Explore 22 clinical sessions on Non-Communicable Diseases (Cancer, Diabetes, Hypertension, Cardiology & Surgical Care).
+          </p>
         </div>
 
-        {/* Segmented Day Control */}
-        <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-1.5 sm:gap-2 p-1 sm:p-1.5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs mb-6 max-w-2xl">
-          <button
-            onClick={() => setActiveDayTab("all")}
-            className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-              activeDayTab === "all"
-                ? "bg-blue-600 text-white shadow-xs font-bold"
-                : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
-            }`}
-          >
-            <Layers className="w-3.5 h-3.5" />
-            <span>Full 2-Day Agenda</span>
-            <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${activeDayTab === "all" ? "bg-blue-700 text-white font-bold" : "bg-slate-100 text-slate-600"}`}>
-              22
-            </span>
-          </button>
+        {/* Top Controls & Action Bar */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+          {/* Segmented Day Tabs */}
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2 p-1.5 rounded-2xl bg-[#040e24] border border-amber-500/30 shadow-lg">
+            <button
+              onClick={() => setActiveDayTab("all")}
+              className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2 rounded-xl text-xs font-bold font-cinzel transition-all cursor-pointer ${
+                activeDayTab === "all"
+                  ? "bg-amber-500 text-slate-950 shadow-md font-black"
+                  : "text-slate-300 hover:text-white"
+              }`}
+            >
+              <Layers className="w-3.5 h-3.5" />
+              <span>Full Agenda</span>
+              <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${activeDayTab === "all" ? "bg-slate-950 text-amber-300" : "bg-slate-800 text-slate-300"}`}>
+                22
+              </span>
+            </button>
 
-          <button
-            onClick={() => setActiveDayTab("day1")}
-            className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-              activeDayTab === "day1"
-                ? "bg-blue-600 text-white shadow-xs font-bold"
-                : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
-            }`}
-          >
-            <Calendar className="w-3.5 h-3.5" />
-            <span>Day 1 (19th Sept)</span>
-            <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${activeDayTab === "day1" ? "bg-blue-700 text-white font-bold" : "bg-slate-100 text-slate-600"}`}>
-              12
-            </span>
-          </button>
+            <button
+              onClick={() => setActiveDayTab("day1")}
+              className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2 rounded-xl text-xs font-bold font-cinzel transition-all cursor-pointer ${
+                activeDayTab === "day1"
+                  ? "bg-amber-500 text-slate-950 shadow-md font-black"
+                  : "text-slate-300 hover:text-white"
+              }`}
+            >
+              <span>Day 1 (19 Sept)</span>
+              <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${activeDayTab === "day1" ? "bg-slate-950 text-amber-300" : "bg-slate-800 text-slate-300"}`}>
+                {day1Schedule.length}
+              </span>
+            </button>
 
-          <button
-            onClick={() => setActiveDayTab("day2")}
-            className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-              activeDayTab === "day2"
-                ? "bg-blue-600 text-white shadow-xs font-bold"
-                : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
-            }`}
-          >
-            <Calendar className="w-3.5 h-3.5" />
-            <span>Day 2 (20th Sept)</span>
-            <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${activeDayTab === "day2" ? "bg-blue-700 text-white font-bold" : "bg-slate-100 text-slate-600"}`}>
-              10
-            </span>
-          </button>
+            <button
+              onClick={() => setActiveDayTab("day2")}
+              className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2 rounded-xl text-xs font-bold font-cinzel transition-all cursor-pointer ${
+                activeDayTab === "day2"
+                  ? "bg-amber-500 text-slate-950 shadow-md font-black"
+                  : "text-slate-300 hover:text-white"
+              }`}
+            >
+              <span>Day 2 (20 Sept)</span>
+              <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${activeDayTab === "day2" ? "bg-slate-950 text-amber-300" : "bg-slate-800 text-slate-300"}`}>
+                {day2Schedule.length}
+              </span>
+            </button>
 
-          <button
-            onClick={() => setActiveDayTab("saved")}
-            className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-              activeDayTab === "saved"
-                ? "bg-amber-500 text-white shadow-xs font-bold"
-                : "text-slate-600 hover:text-amber-700 hover:bg-amber-50"
-            }`}
-          >
-            <Bookmark className="w-3.5 h-3.5" />
-            <span>Saved</span>
-            <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${activeDayTab === "saved" ? "bg-amber-600 text-white font-bold" : "bg-slate-100 text-slate-600"}`}>
-              {bookmarkedIds.length}
+            <button
+              onClick={() => setActiveDayTab("saved")}
+              className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2 rounded-xl text-xs font-bold font-cinzel transition-all cursor-pointer ${
+                activeDayTab === "saved"
+                  ? "bg-amber-500 text-slate-950 shadow-md font-black"
+                  : "text-slate-300 hover:text-white"
+              }`}
+            >
+              <BookmarkCheck className="w-3.5 h-3.5" />
+              <span>My Saved</span>
+              <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${activeDayTab === "saved" ? "bg-slate-950 text-amber-300" : "bg-slate-800 text-slate-300"}`}>
+                {bookmarkedIds.length}
+              </span>
+            </button>
+          </div>
+
+          {/* Right Action: Add Full Conclave to Google Calendar or Open Pocket Modal */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => openGoogleCalendar(null)}
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 border border-amber-500/40 text-xs font-bold transition-all cursor-pointer group"
+            >
+              <Calendar className="w-4 h-4 text-amber-400 group-hover:scale-110 transition-transform" />
+              <span>Add to Google Calendar</span>
+              <ExternalLink className="w-3 h-3 text-amber-400/80" />
+            </button>
+
+            <button
+              onClick={onOpenPocketSchedule}
+              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs transition-all shadow-md shadow-amber-500/20 cursor-pointer"
+            >
+              <Download className="w-4 h-4" />
+              <span>Pocket Timetable</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Live CME Credit Tracker Banner */}
+        <div className="p-3.5 rounded-2xl bg-gradient-to-r from-[#0a1f42] via-[#081733] to-[#0a1f42] border border-amber-500/30 mb-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+          <div className="flex items-center gap-2 text-slate-300">
+            <Sparkles className="w-4 h-4 text-amber-400" />
+            <span>
+              <strong>CME Credit Attendance:</strong> TNMC 4 Credit Hours Accredited for Southern Railway Medical Conclave 2026.
             </span>
-          </button>
+          </div>
+          <div className="flex items-center gap-2 text-amber-300 font-mono font-bold text-xs bg-[#030917] px-3 py-1 rounded-lg border border-amber-500/30">
+            <span>{bookmarkedIds.length} Sessions In Your Personal Itinerary</span>
+          </div>
         </div>
 
         {/* Search & Track Filters */}
-        <div className="space-y-4 mb-8">
-          {/* Search Box */}
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-              <Search className="w-4 h-4" />
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 mb-8">
+          {/* Live Search Input */}
+          <div className="md:col-span-6 relative">
+            <Search className="w-4 h-4 text-amber-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
+              placeholder="Search topic, speaker, chair, hospital, or time..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by topic, speaker (e.g. Dr King Gandhi, Dr Prasanth Ganesh), chairperson, hospital, or time..."
-              className="w-full pl-10 pr-10 py-3 rounded-xl bg-white border border-slate-200 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 shadow-2xs"
+              className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-[#040e24] border border-slate-700 focus:border-amber-400 text-xs sm:text-sm text-white placeholder-slate-400 focus:outline-none transition-colors"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-700"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
               >
                 <X className="w-4 h-4" />
               </button>
             )}
           </div>
 
-          {/* Specialty Track Pills */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1 flex-shrink-0 mr-1 font-mono">
-              <Filter className="w-3.5 h-3.5" /> Filter:
-            </span>
-            {tracks.map((track) => (
+          {/* Track Filter Pills */}
+          <div className="md:col-span-6 flex flex-wrap items-center gap-1.5">
+            {tracks.map((tr) => (
               <button
-                key={track.id}
-                onClick={() => setSelectedTrack(track.id)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors border ${
-                  selectedTrack === track.id
-                    ? "bg-blue-600 text-white border-blue-600 shadow-2xs"
-                    : "bg-white text-slate-600 border-slate-200 hover:border-slate-300 hover:bg-slate-50"
+                key={tr.id}
+                onClick={() => setSelectedTrack(tr.id)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                  selectedTrack === tr.id
+                    ? "bg-amber-500/20 text-amber-300 border border-amber-500/50 font-bold"
+                    : "bg-[#040e24] text-slate-300 hover:text-white border border-slate-800"
                 }`}
               >
-                {track.label}
+                {tr.label || tr.name}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Count summary */}
-        <div className="flex items-center justify-between text-xs text-slate-500 mb-6">
-          <div>
-            Showing <span className="font-bold text-slate-900">{filteredSessions.length}</span> session
-            {filteredSessions.length === 1 ? "" : "s"}
-            {selectedTrack !== "all" && (
-              <span className="ml-1 text-slate-600">
-                in <span className="font-semibold text-slate-800">"{tracks.find((t) => t.id === selectedTrack)?.label}"</span>
-              </span>
-            )}
-            {searchQuery && (
-              <span className="ml-1 text-slate-600">
-                matching <span className="font-semibold text-slate-800">"{searchQuery}"</span>
-              </span>
-            )}
-          </div>
-
-          {(selectedTrack !== "all" || searchQuery) && (
+        {/* Sessions Render List */}
+        {filteredSessions.length === 0 ? (
+          <div className="royal-card p-12 text-center text-slate-400">
+            <BookOpen className="w-10 h-10 text-amber-400/50 mx-auto mb-3" />
+            <h3 className="text-lg font-bold font-cinzel text-white mb-1">
+              No Sessions Match Your Criteria
+            </h3>
+            <p className="text-xs text-slate-400 max-w-md mx-auto">
+              {activeDayTab === "saved"
+                ? "You haven't bookmarked any sessions yet. Click the bookmark icon on any session to add it to your itinerary."
+                : "Try adjusting your track filter or search keywords."}
+            </p>
             <button
               onClick={() => {
                 setSelectedTrack("all");
                 setSearchQuery("");
+                setActiveDayTab("all");
               }}
-              className="text-xs font-medium text-blue-600 hover:underline flex items-center gap-1"
+              className="mt-4 px-4 py-2 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-bold cursor-pointer"
             >
-              <X className="w-3.5 h-3.5" /> Reset filters
+              Reset Filters
             </button>
-          )}
-        </div>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            <div className="text-xs text-slate-400 font-medium pb-1 flex items-center justify-between">
+              <span>Showing {filteredSessions.length} scientific session{filteredSessions.length > 1 ? "s" : ""}</span>
+              {searchQuery && (
+                <span className="text-amber-400">Matching "{searchQuery}"</span>
+              )}
+            </div>
 
-        {/* Session cards list */}
-        {filteredSessions.length > 0 ? (
-          <div className="space-y-3.5">
             {filteredSessions.map((session) => (
               <SessionCard
                 key={session.id}
@@ -233,27 +253,8 @@ export default function ScheduleExplorer({
               />
             ))}
           </div>
-        ) : (
-          <div className="text-center py-16 px-4 rounded-2xl bg-white border border-dashed border-slate-300">
-            <BookOpen className="w-10 h-10 text-slate-400 mx-auto mb-3" />
-            <h4 className="text-base font-bold text-slate-800 mb-1">No sessions found</h4>
-            <p className="text-xs text-slate-500 max-w-sm mx-auto mb-4">
-              {activeDayTab === "saved"
-                ? "You haven't bookmarked any sessions yet. Click the bookmark icon on any session to pin it here."
-                : "Try adjusting your search query or choosing another specialty track."}
-            </p>
-            <button
-              onClick={() => {
-                setSelectedTrack("all");
-                setSearchQuery("");
-                if (activeDayTab === "saved") setActiveDayTab("day1");
-              }}
-              className="px-4 py-2 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-800 transition-colors"
-            >
-              Show All Sessions
-            </button>
-          </div>
         )}
+
       </div>
     </section>
   );
