@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { X, Printer, Calendar, Stethoscope, CheckCircle2, ExternalLink } from "lucide-react";
+import { 
+  X, Printer, Calendar, Stethoscope, CheckCircle2, ExternalLink, 
+  Download, QrCode, Copy, Check, Maximize2 
+} from "lucide-react";
 import { day1Schedule, day2Schedule } from "../data/scheduleData";
 import { openGoogleCalendar } from "../utils/googleCalendar";
+import { playChime } from "../utils/soundEffects";
+import { getTimetableUrl, generateQRCodeDataURL, downloadQRCodeImage } from "../utils/qrCode";
 
-export default function PocketScheduleModal({ isOpen, onClose }) {
+export default function PocketScheduleModal({ isOpen, onClose, onOpenFullPage }) {
   const [selectedDay, setSelectedDay] = useState("all");
+  const [qrCodeDataUrl, setQrCodeDataUrl] = useState("");
+  const [showQRView, setShowQRView] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const timetableUrl = getTimetableUrl();
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -13,17 +22,33 @@ export default function PocketScheduleModal({ isOpen, onClose }) {
     if (isOpen) {
       window.addEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "hidden";
+      generateQRCodeDataURL(timetableUrl).then((url) => {
+        if (url) setQrCodeDataUrl(url);
+      });
     }
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "auto";
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, onClose, timetableUrl]);
 
   if (!isOpen) return null;
 
   const handlePrint = () => {
     window.print();
+  };
+
+  const handleDownloadPDF = async () => {
+    playChime();
+    const { downloadTimetablePDF } = await import("../utils/pdfGenerator");
+    downloadTimetablePDF(selectedDay);
+  };
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(timetableUrl);
+    setCopied(true);
+    playChime();
+    setTimeout(() => setCopied(false), 2500);
   };
 
   const handleBackdropClick = (e) => {
@@ -43,42 +68,114 @@ export default function PocketScheduleModal({ isOpen, onClose }) {
         className="relative w-full max-w-5xl my-auto bg-[#fffefb] border-2 border-amber-500/50 rounded-3xl shadow-2xl flex flex-col max-h-[90vh] overflow-hidden text-slate-900"
       >
         {/* Modal Top Control Bar (Hidden on print) */}
-        <div className="p-4 sm:p-5 border-b border-amber-500/30 flex items-center justify-between bg-[#040e24] text-white no-print flex-shrink-0">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 p-0.5 flex items-center justify-center shadow-md flex-shrink-0">
+        <div className="p-3 sm:p-5 border-b border-amber-500/30 flex items-center justify-between bg-[#040e24] text-white no-print flex-shrink-0 gap-2">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 p-0.5 flex items-center justify-center shadow-md flex-shrink-0">
               <div className="w-full h-full rounded-xl bg-[#030917] flex items-center justify-center text-amber-300">
-                <Stethoscope className="w-5 h-5" />
+                <Stethoscope className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
             </div>
             <div>
-              <h3 className="text-base sm:text-lg font-black font-cinzel text-white leading-tight">
-                RAILMED TPJ <span className="text-gold-gradient">CME 2026</span> • Official Pocket Timetable
+              <h3 className="text-sm sm:text-lg font-black font-cinzel text-white leading-tight">
+                RAILMED TPJ <span className="text-gold-gradient">CME 2026</span> • Timetable
               </h3>
-              <p className="text-xs text-slate-400 mt-0.5">
+              <p className="text-[10px] sm:text-xs text-slate-400 mt-0.5 hidden sm:block">
                 19th & 20th September 2026 • Cauvery Meeting Hall, DRM Campus, TPJ
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <button
+              onClick={() => setShowQRView(!showQRView)}
+              className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl text-xs font-bold bg-[#0a1f42] hover:bg-[#0f2c61] text-amber-300 border border-amber-500/40 transition-all shadow-sm cursor-pointer"
+              title="Show QR Code for Mobile Timetable"
+            >
+              <QrCode className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">QR Code</span>
+            </button>
+
+            {onOpenFullPage && (
+              <button
+                onClick={() => {
+                  onClose();
+                  onOpenFullPage();
+                }}
+                className="hidden md:flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 cursor-pointer"
+                title="Open in Dedicated Full Page URL (#timetable)"
+              >
+                <Maximize2 className="w-3.5 h-3.5 text-amber-400" />
+                <span>Full Page URL</span>
+              </button>
+            )}
+
+            <button
+              onClick={handleDownloadPDF}
+              className="flex items-center gap-1 sm:gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 transition-all shadow-md cursor-pointer active:scale-95"
+              title="Download Timetable as PDF file"
+            >
+              <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span>Download PDF</span>
+            </button>
+
             <button
               onClick={handlePrint}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 transition-all shadow-md cursor-pointer"
-              title="Print Schedule / Save as PDF"
+              className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all cursor-pointer"
+              title="Print Schedule"
             >
-              <Printer className="w-4 h-4" />
-              <span className="hidden sm:inline">Print / Save PDF</span>
+              <Printer className="w-3.5 h-3.5" />
+              <span>Print</span>
             </button>
 
             <button
               onClick={onClose}
-              className="p-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition-colors cursor-pointer"
+              className="p-1.5 sm:p-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition-colors cursor-pointer"
               aria-label="Close modal"
             >
-              <X className="w-5 h-5" />
+              <X className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
           </div>
         </div>
+
+        {/* QR Code Banner View if toggled */}
+        {showQRView && (
+          <div className="p-4 bg-gradient-to-r from-[#030917] via-[#081733] to-[#030917] text-white border-b border-amber-500/40 flex flex-col sm:flex-row items-center justify-between gap-4 no-print animate-in fade-in duration-200">
+            <div className="space-y-1 text-center sm:text-left">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 font-cinzel">
+                Direct Mobile Timetable Link
+              </span>
+              <h4 className="text-sm font-bold text-white">
+                Scan with smartphone to access 2-Day schedule on the go
+              </h4>
+              <div className="text-xs text-amber-200/90 font-mono break-all">
+                {timetableUrl}
+              </div>
+              <div className="pt-1 flex items-center gap-2 justify-center sm:justify-start">
+                <button
+                  onClick={handleCopyLink}
+                  className="flex items-center gap-1 px-3 py-1 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold cursor-pointer"
+                >
+                  {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                  <span>{copied ? "Copied!" : "Copy URL"}</span>
+                </button>
+                <button
+                  onClick={() => downloadQRCodeImage()}
+                  className="flex items-center gap-1 px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold cursor-pointer border border-slate-600"
+                >
+                  <Download className="w-3 h-3" />
+                  <span>Save QR PNG</span>
+                </button>
+              </div>
+            </div>
+
+            {qrCodeDataUrl && (
+              <div className="p-2 bg-white rounded-xl border border-amber-400 shadow-lg flex flex-col items-center flex-shrink-0">
+                <img src={qrCodeDataUrl} alt="Timetable QR" className="w-24 h-24 object-contain" />
+                <span className="text-[9px] font-bold text-slate-900 mt-0.5">Scan for Schedule</span>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Filter bar (Hidden on print) */}
         <div className="p-3 bg-amber-50/80 border-b border-amber-300 flex flex-wrap items-center justify-between gap-3 no-print px-4 sm:px-6 flex-shrink-0">
@@ -311,7 +408,7 @@ export default function PocketScheduleModal({ isOpen, onClose }) {
               Dr. Vijayalakshmi R. Natarajan (CMS / TPJ - Organising Chairman) • Shri K M Sathiyia Rathan (ADRM / TPJ - Organising Vice Chairman)
             </p>
             <p className="text-[11px] text-slate-500">
-              Helpdesk & Emergency: +91 94868 00000 | railmed.tpj2026@gmail.com
+              Cauvery Meeting Hall, DRM Campus, Tiruchchirappalli (TPJ) • TNMC 4 Credit Hours Accredited
             </p>
           </div>
         </div>

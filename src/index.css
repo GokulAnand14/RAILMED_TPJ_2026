@@ -194,48 +194,52 @@
 
 /* Print Styles */
 @media print {
+  @page {
+    margin: 10mm;
+    size: auto;
+  }
+
   html, body {
     background: #ffffff !important;
-    color: #000000 !important;
+    color: #0f172a !important;
     height: auto !important;
     overflow: visible !important;
   }
 
-  body * {
-    visibility: hidden;
-  }
-
-  #pocket-schedule-print-area,
-  #pocket-schedule-print-area * {
-    visibility: visible;
+  /* Hide interactive elements when printing */
+  .no-print,
+  nav,
+  footer,
+  #gallery-section,
+  .gold-stars-layer,
+  .ambient-glow {
+    display: none !important;
   }
 
   #pocket-schedule-print-modal-container {
     position: static !important;
     display: block !important;
-    background: none !important;
+    background: transparent !important;
     padding: 0 !important;
     overflow: visible !important;
+    height: auto !important;
     max-height: none !important;
   }
 
-  #pocket-schedule-print-area {
-    position: absolute !important;
-    left: 0 !important;
-    top: 0 !important;
+  #pocket-schedule-print-area,
+  #invitation-card-print,
+  .printable-card {
+    position: static !important;
+    display: block !important;
     width: 100% !important;
     max-width: 100% !important;
     max-height: none !important;
     overflow: visible !important;
     box-shadow: none !important;
-    border: none !important;
+    border: 1px solid #cbd5e1 !important;
     padding: 0 !important;
     background: #ffffff !important;
-    color: #000000 !important;
-  }
-
-  .no-print {
-    display: none !important;
+    color: #0f172a !important;
   }
 
   table {
@@ -254,11 +258,12 @@
   }
 
   th, td {
-    color: #000000 !important;
+    color: #0f172a !important;
     border: 1px solid #94a3b8 !important;
     padding: 6px 8px !important;
   }
 }
+
 
 
 

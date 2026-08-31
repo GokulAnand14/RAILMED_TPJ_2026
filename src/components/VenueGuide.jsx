@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Train, Plane, Car, CloudSun, Landmark, PhoneCall, ExternalLink, Navigation, ShieldCheck, Copy, Check, MapPin } from "lucide-react";
+import { Train, Plane, Car, CloudSun, Landmark, ExternalLink, Navigation, ShieldCheck, Copy, Check, MapPin } from "lucide-react";
 import { venueData } from "../data/venueData";
 import { trichyHeritageGuide } from "../data/trichyGuideData";
 import { playChime } from "../utils/soundEffects";
@@ -81,11 +81,13 @@ export default function VenueGuide() {
               </button>
 
               <a
-                href="tel:04312460555"
+                href="https://maps.google.com/?q=Cauvery+Meeting+Hall+DRM+Campus+Tiruchirappalli"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="px-5 py-3 rounded-xl bg-[#040e24] hover:bg-[#081b47] border border-slate-700 text-slate-300 hover:text-white font-semibold text-xs transition-all flex items-center justify-center gap-2"
               >
-                <PhoneCall className="w-4 h-4 text-amber-400" />
-                <span>Call Helpdesk: 0431-2460555</span>
+                <ExternalLink className="w-4 h-4 text-amber-400" />
+                <span>Open in Google Maps</span>
               </a>
             </div>
           </div>

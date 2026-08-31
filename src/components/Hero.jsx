@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { 
   Calendar, Building2, ArrowRight, Download, Clock, 
-  Award, Sparkles, ShieldCheck, Users, MapPin, FileText, Maximize2, X, ExternalLink
+  Award, Sparkles, ShieldCheck, Users, MapPin, FileText, Maximize2, X, ExternalLink, Camera, BookOpen,
+  ChevronLeft, ChevronRight, Heart
 } from "lucide-react";
 import { openGoogleCalendar } from "../utils/googleCalendar";
 import { playChime } from "../utils/soundEffects";
@@ -11,13 +12,68 @@ export default function Hero({ onNavigate, onOpenPocketSchedule }) {
   const targetDate = new Date("2026-09-19T08:00:00+05:30").getTime();
   const [showPosterModal, setShowPosterModal] = useState(false);
   const [currentIST, setCurrentIST] = useState("");
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const heroSlides = [
+    {
+      id: "poster",
+      src: "/assets/hero_slide_1_poster.jpg",
+      title: "RAILMED TPJ CME 2026 Official Theme",
+      subtitle: "Srirangam Temple & Royal Peacock Heritage Artwork • Southern Railway",
+      badge: "Official Emblem",
+      tag: "Heritage Poster"
+    },
+    {
+      id: "cms-tribute",
+      src: "/assets/hero_slide_2_cms_tribute.jpg",
+      title: "Honouring 34 Years of Exemplary Leadership",
+      subtitle: "A Heartfelt Tribute to Dr. Vijayalakshmi Ramaswamy Natarajan (CMS / TPJ)",
+      badge: "Leadership Tribute",
+      tag: "CMS 34 Yrs Tribute"
+    },
+    {
+      id: "invitation",
+      src: "/assets/hero_slide_3_invitation.png",
+      title: "Official Conclave Executive Invitation",
+      subtitle: "Chief Guest Dr. S. Kalyani (PCMD / SR) • Guests of Honour Dr. U.K. Perumal & Shri Balak Ram Negi",
+      badge: "Executive Notice",
+      tag: "Official Invitation"
+    }
+  ];
+
+  const nextSlide = useCallback(() => {
+    setActiveSlideIndex((prev) => (prev + 1) % heroSlides.length);
+  }, [heroSlides.length]);
+
+  const prevSlide = useCallback(() => {
+    setActiveSlideIndex((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+  }, [heroSlides.length]);
+
+  // Automatic slideshow timer with hover pause
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(nextSlide, 5000);
+    return () => clearInterval(interval);
+  }, [isPaused, nextSlide]);
+
+  // Keyboard navigation for zoom modal
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!showPosterModal) return;
+      if (e.key === "ArrowRight") nextSlide();
+      if (e.key === "ArrowLeft") prevSlide();
+      if (e.key === "Escape") setShowPosterModal(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [showPosterModal, nextSlide, prevSlide]);
 
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
     minutes: 0,
     seconds: 0,
-    isCompleted: false,
   });
 
   useEffect(() => {
@@ -25,27 +81,26 @@ export default function Hero({ onNavigate, onOpenPocketSchedule }) {
       const now = new Date().getTime();
       const difference = targetDate - now;
 
-      // Update IST Time Display
-      const istString = new Date().toLocaleTimeString("en-IN", {
+      // Update live IST string
+      const nowIST = new Intl.DateTimeFormat("en-IN", {
         timeZone: "Asia/Kolkata",
         hour: "2-digit",
         minute: "2-digit",
         second: "2-digit",
-        hour12: true
-      });
-      setCurrentIST(istString);
+        hour12: true,
+      }).format(new Date());
+      setCurrentIST(nowIST);
 
-      if (difference <= 0) {
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0, isCompleted: true });
-        return;
+      if (difference > 0) {
+        setTimeLeft({
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((difference / 1000 / 60) % 60),
+          seconds: Math.floor((difference / 1000) % 60),
+        });
+      } else {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
       }
-
-      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-      setTimeLeft({ days, hours, minutes, seconds, isCompleted: false });
     };
 
     calculateTime();
@@ -54,6 +109,15 @@ export default function Hero({ onNavigate, onOpenPocketSchedule }) {
   }, [targetDate]);
 
   const pageCards = [
+    {
+      id: "gallery",
+      title: "Conclave Photo Archive",
+      desc: "300+ High-resolution photo moments, clinical proceedings & leadership archive",
+      icon: Camera,
+      badge: "300+ Photos",
+      color: "from-amber-500/20 to-rose-500/20",
+      borderColor: "border-amber-500/40"
+    },
     {
       id: "schedule",
       title: "Scientific Schedule",
@@ -93,33 +157,49 @@ export default function Hero({ onNavigate, onOpenPocketSchedule }) {
     {
       id: "invitation",
       title: "Official Invitation Card",
-      desc: "Digital 3D replica & high-resolution scan of official Conclave letter",
+      desc: "Digital replica & high-resolution scan of official Conclave letter with QR Code",
       icon: FileText,
       badge: "Executive Notice",
       color: "from-amber-400/20 to-yellow-500/20",
       borderColor: "border-amber-400/50"
+    },
+    {
+      id: "resources",
+      title: "Learning Resources",
+      desc: "35 Official PPT slide decks from CNE presentations, viewable & downloadable",
+      icon: BookOpen,
+      badge: "35+ PPTs",
+      color: "from-amber-500/20 to-emerald-500/20",
+      borderColor: "border-amber-500/40"
+    },
+    {
+      id: "timetable",
+      title: "Pocket Timetable & QR",
+      desc: "Instant printable 2-day timetable URL, mobile QR code & PDF download",
+      icon: Download,
+      badge: "Print & QR",
+      color: "from-amber-500/20 to-orange-500/20",
+      borderColor: "border-amber-500/40"
     }
   ];
+
+  const currentSlide = heroSlides[activeSlideIndex];
 
   return (
     <section className="relative pt-32 pb-16 sm:pt-40 sm:pb-20 overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
         
-        {/* Top Centered Header Content */}
-        <div className="text-center max-w-4xl mx-auto mb-10">
-          
-          {/* Official Royal Pill Tag */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500/20 via-amber-400/25 to-amber-600/20 border border-amber-400/40 mb-6 shadow-lg shadow-amber-500/10">
-            <span className="flex h-2 w-2 relative">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
-            </span>
-            <span className="text-[11px] sm:text-xs font-bold text-amber-300 font-cinzel tracking-wider uppercase">
-              Southern Railway • Tiruchchirappalli Division Medical Department
+        {/* Main Central Hero Title & Badges */}
+        <div className="text-center max-w-4xl mx-auto">
+          {/* Top Royal Tag */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500/20 via-amber-400/25 to-amber-600/20 border border-amber-400/50 mb-4 shadow-lg shadow-amber-500/10">
+            <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+            <span className="text-xs sm:text-sm font-bold text-amber-300 font-cinzel tracking-wider uppercase">
+              Southern Railway • Tiruchchirappalli Division
             </span>
           </div>
 
-          {/* Main Ornate Title */}
+          {/* Main Conclave Name */}
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black font-cinzel tracking-tight text-white mb-4 drop-shadow-md">
             RAILMED TPJ <span className="text-gold-gradient">CME 2026</span>
           </h1>
@@ -163,6 +243,17 @@ export default function Hero({ onNavigate, onOpenPocketSchedule }) {
             <button
               onClick={() => {
                 playChime();
+                onNavigate("gallery");
+              }}
+              className="px-5 py-3 rounded-xl bg-gradient-to-r from-amber-500/20 via-amber-400/25 to-amber-600/20 hover:from-amber-500/30 hover:to-amber-400/35 border border-amber-400/60 text-amber-200 font-bold text-xs sm:text-sm transition-all shadow-lg shadow-amber-500/10 flex items-center justify-center gap-2 cursor-pointer group"
+            >
+              <Camera className="w-4 h-4 text-amber-400 group-hover:scale-110 transition-transform" />
+              <span>300+ Photo Gallery</span>
+            </button>
+
+            <button
+              onClick={() => {
+                playChime();
                 onNavigate("invitation");
               }}
               className="px-5 py-3 rounded-xl bg-[#0a193d]/90 hover:bg-[#0f2352] border border-amber-400/40 text-amber-200 font-bold text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer group"
@@ -173,46 +264,156 @@ export default function Hero({ onNavigate, onOpenPocketSchedule }) {
 
             <button
               onClick={onOpenPocketSchedule}
-              className="px-5 py-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700 text-slate-200 font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="px-5 py-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700 text-slate-200 font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 cursor-pointer group"
             >
-              <Download className="w-4 h-4 text-slate-400" />
-              <span>Pocket Timetable</span>
+              <Download className="w-4 h-4 text-amber-400 group-hover:scale-110 transition-transform" />
+              <span>Pocket Timetable & QR</span>
             </button>
           </div>
         </div>
 
-        {/* Grand Poster Visual & Live Countdown Showcase */}
+        {/* Grand Interactive Slideshow Showcase & Live Countdown */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center max-w-6xl mx-auto mb-16">
           
-          {/* Left Column: Official Poster Spotlight Card */}
-          <div className="lg:col-span-7 relative group">
-            <div className="absolute -inset-1 bg-gradient-to-r from-amber-500 via-teal-500 to-amber-600 rounded-3xl blur opacity-30 group-hover:opacity-60 transition duration-500" />
-            <div 
-              onClick={() => setShowPosterModal(true)}
-              className="relative rounded-2xl overflow-hidden border-2 border-amber-500/40 bg-[#040e24] shadow-2xl cursor-zoom-in group"
-              title="Click to zoom full artwork"
-            >
-              <img
-                src="/assets/poster_hero.jpg"
-                alt="RAILMED TPJ CME 2026 Official Theme Artwork - Golden Gopuram & Peacock"
-                className="w-full h-auto object-cover transform group-hover:scale-[1.02] transition duration-700 max-h-[440px]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#030917] via-transparent to-transparent opacity-80 pointer-events-none" />
+          {/* Left Column: Interactive Hero Artwork Slideshow */}
+          <div 
+            className="lg:col-span-7 relative group"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
+            {/* Glowing Amber Atmosphere Halo */}
+            <div className="absolute -inset-1.5 bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 rounded-3xl blur-md opacity-35 group-hover:opacity-65 transition duration-500" />
+            
+            <div className="relative rounded-2xl overflow-hidden border-2 border-amber-500/50 bg-[#040e24] shadow-2xl flex flex-col">
               
-              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between p-3 rounded-xl bg-[#040d21]/90 backdrop-blur-md border border-amber-500/30 text-xs">
-                <div className="flex items-center gap-2">
-                  <Award className="w-4 h-4 text-amber-400" />
-                  <span className="font-bold text-amber-200 font-cinzel">Heritage Theme Artwork</span>
+              {/* Slide Image Frame with Smooth Crossfade */}
+              <div 
+                onClick={() => {
+                  playChime();
+                  setShowPosterModal(true);
+                }}
+                className="relative w-full aspect-4/3 sm:aspect-16/10 bg-[#020713] overflow-hidden cursor-zoom-in group/slide flex items-center justify-center"
+                title="Click to view full high-resolution image in lightbox"
+              >
+                <img
+                  key={currentSlide.id}
+                  src={currentSlide.src}
+                  alt={currentSlide.title}
+                  className="w-full h-full object-contain bg-[#020713] transform group-hover/slide:scale-[1.02] transition duration-500 animate-in fade-in"
+                />
+
+                {/* Subtle vignette gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#030917] via-transparent to-transparent opacity-75 pointer-events-none" />
+
+                {/* Top Badge Overlay */}
+                <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none">
+                  <span className="px-3 py-1 rounded-full text-xs font-bold bg-slate-950/90 text-amber-300 border border-amber-400/50 backdrop-blur-md shadow-lg font-cinzel">
+                    {currentSlide.badge}
+                  </span>
+                  <span className="px-2.5 py-0.5 rounded-md text-[11px] font-bold font-mono bg-amber-500/20 text-amber-300 border border-amber-500/40 backdrop-blur-md shadow">
+                    {activeSlideIndex + 1} / {heroSlides.length}
+                  </span>
                 </div>
-                <div className="text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1">
-                  <Maximize2 className="w-3.5 h-3.5" />
-                  <span>Zoom Artwork</span>
+
+                {/* Left / Right Carousel Arrow Buttons */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    playChime();
+                    prevSlide();
+                  }}
+                  className="absolute left-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-slate-950/80 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-500/40 flex items-center justify-center transition-all opacity-80 hover:opacity-100 shadow-xl cursor-pointer active:scale-95"
+                  aria-label="Previous Slide"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    playChime();
+                    nextSlide();
+                  }}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-slate-950/80 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-500/40 flex items-center justify-center transition-all opacity-80 hover:opacity-100 shadow-xl cursor-pointer active:scale-95"
+                  aria-label="Next Slide"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+
+                {/* Bottom Bar Info Overlay */}
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between p-2.5 sm:p-3 rounded-xl bg-[#040d21]/95 backdrop-blur-md border border-amber-500/40 text-xs shadow-lg">
+                  <div className="overflow-hidden pr-2">
+                    <div className="font-bold text-amber-200 font-cinzel text-xs sm:text-sm truncate">
+                      {currentSlide.title}
+                    </div>
+                    <div className="text-[10px] sm:text-[11px] text-slate-300 truncate">
+                      {currentSlide.subtitle}
+                    </div>
+                  </div>
+                  <div className="text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1 flex-shrink-0 text-xs">
+                    <Maximize2 className="w-3.5 h-3.5" />
+                    <span className="hidden sm:inline">Zoom</span>
+                  </div>
                 </div>
               </div>
+
+              {/* Bottom Quick-Slide Navigation Tabs */}
+              <div className="p-2.5 bg-[#030917] border-t border-amber-500/20 flex items-center justify-between gap-1.5 sm:gap-2">
+                <div className="flex items-center gap-1.5 flex-1 overflow-x-auto">
+                  {heroSlides.map((slide, idx) => (
+                    <button
+                      key={slide.id}
+                      onClick={() => {
+                        playChime();
+                        setActiveSlideIndex(idx);
+                      }}
+                      className={`flex-1 py-1.5 px-2 rounded-lg text-[10px] sm:text-xs font-semibold font-cinzel transition-all cursor-pointer truncate ${
+                        activeSlideIndex === idx
+                          ? "bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-black shadow-md shadow-amber-500/20"
+                          : "bg-slate-900/90 text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800"
+                      }`}
+                    >
+                      {slide.tag}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Indicator Dots with Animated Progress */}
+                <div className="flex items-center gap-1.5 px-2">
+                  {heroSlides.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setActiveSlideIndex(idx)}
+                      className={`relative h-2 rounded-full overflow-hidden transition-all duration-300 cursor-pointer ${
+                        activeSlideIndex === idx
+                          ? "w-10 bg-slate-700"
+                          : "w-2 bg-slate-700 hover:bg-slate-500"
+                      }`}
+                      aria-label={`Go to slide ${idx + 1}`}
+                    >
+                      {activeSlideIndex === idx && (
+                        <div 
+                          className={`absolute top-0 left-0 h-full bg-amber-400 ${isPaused ? "w-full transition-all" : ""}`}
+                          style={!isPaused ? {
+                            animation: "slideshowProgress 5s linear forwards"
+                          } : {}}
+                        />
+                      )}
+                    </button>
+                  ))}
+                  <style>{`
+                    @keyframes slideshowProgress {
+                      0% { width: 0%; }
+                      100% { width: 100%; }
+                    }
+                  `}</style>
+                </div>
+              </div>
+
             </div>
           </div>
 
-          {/* Right Column: Live Countdown */}
+          {/* Right Column: Live Countdown & Conclave Status */}
           <div className="lg:col-span-5 space-y-4">
             <div className="p-6 rounded-2xl bg-[#081533]/90 border border-amber-500/30 shadow-xl backdrop-blur-xl space-y-4">
               <div className="flex items-center justify-between">
@@ -264,6 +465,17 @@ export default function Hero({ onNavigate, onOpenPocketSchedule }) {
                 <span>Add Conclave to Google Calendar</span>
                 <ExternalLink className="w-3 h-3 text-amber-400/80" />
               </button>
+            </div>
+
+            {/* Quick Conclave Highlight Card */}
+            <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-500/10 via-amber-400/10 to-amber-600/10 border border-amber-500/30 flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 flex-shrink-0">
+                <Heart className="w-5 h-5 text-amber-300" />
+              </div>
+              <div>
+                <div className="text-xs font-bold text-amber-200 font-cinzel">34 Years of Exemplary Service</div>
+                <div className="text-[11px] text-slate-300">Heartfelt tribute celebrating Dr. Vijayalakshmi R. Natarajan (CMS/TPJ)</div>
+              </div>
             </div>
           </div>
         </div>
@@ -317,29 +529,106 @@ export default function Hero({ onNavigate, onOpenPocketSchedule }) {
 
       </div>
 
-      {/* Poster Zoom Lightbox Modal */}
+      {/* Poster Zoom Lightbox Modal with Slideshow Switcher */}
       {showPosterModal && (
         <div
           onClick={() => setShowPosterModal(false)}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-950/90 backdrop-blur-md animate-in fade-in duration-200"
         >
-          <div className="relative max-w-4xl max-h-[90vh] bg-[#040d21] border-2 border-amber-500/40 rounded-3xl p-3 shadow-2xl overflow-hidden">
-            <div className="flex justify-between items-center px-4 py-2 border-b border-amber-500/20 mb-2">
-              <span className="text-xs font-bold font-cinzel text-amber-300">
-                Official Conclave Artwork • Golden Gopuram & Peacock Heritage
-              </span>
+          <div 
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-4xl max-h-[95vh] bg-[#040d21] border-2 border-amber-500/50 rounded-3xl p-3 sm:p-4 shadow-2xl flex flex-col overflow-hidden text-white"
+          >
+            {/* Modal Header */}
+            <div className="flex justify-between items-center px-2 py-1.5 border-b border-amber-500/30 mb-2 gap-3 flex-shrink-0">
+              <div className="overflow-hidden">
+                <span className="text-xs sm:text-sm font-bold font-cinzel text-amber-300 truncate block">
+                  {currentSlide.title}
+                </span>
+                <span className="text-[10px] text-slate-300 truncate block">
+                  {currentSlide.subtitle}
+                </span>
+              </div>
+              
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <span className="text-xs font-mono text-amber-400 font-bold bg-amber-500/20 px-2 py-0.5 rounded border border-amber-500/40">
+                  {activeSlideIndex + 1} / {heroSlides.length}
+                </span>
+                <button
+                  onClick={() => setShowPosterModal(false)}
+                  className="p-1.5 rounded-xl text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 transition-colors cursor-pointer"
+                  aria-label="Close Lightbox"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Modal Main Image with Arrows */}
+            <div className="relative flex-1 bg-[#020713] rounded-2xl overflow-hidden flex items-center justify-center p-2 min-h-[50vh]">
+              <img
+                src={currentSlide.src}
+                alt={currentSlide.title}
+                className="w-full h-auto max-h-[70vh] object-contain rounded-xl"
+              />
+
               <button
-                onClick={() => setShowPosterModal(false)}
-                className="p-1 rounded-lg text-slate-400 hover:text-white bg-slate-800"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  playChime();
+                  prevSlide();
+                }}
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-slate-950/80 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-500/40 flex items-center justify-center transition-all cursor-pointer shadow-2xl active:scale-95"
+                aria-label="Previous Slide"
               >
-                <X className="w-5 h-5" />
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  playChime();
+                  nextSlide();
+                }}
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-slate-950/80 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-500/40 flex items-center justify-center transition-all cursor-pointer shadow-2xl active:scale-95"
+                aria-label="Next Slide"
+              >
+                <ChevronRight className="w-6 h-6" />
               </button>
             </div>
-            <img
-              src="/assets/poster_hero.jpg"
-              alt="Official Conclave Artwork High-Res"
-              className="w-full h-auto max-h-[75vh] object-contain rounded-2xl"
-            />
+
+            {/* Modal Bottom Switcher Tabs */}
+            <div className="pt-3 flex items-center justify-between gap-2 flex-shrink-0">
+              <div className="flex items-center gap-1.5 flex-1 overflow-x-auto">
+                {heroSlides.map((slide, idx) => (
+                  <button
+                    key={slide.id}
+                    onClick={() => {
+                      playChime();
+                      setActiveSlideIndex(idx);
+                    }}
+                    className={`py-1.5 px-3 rounded-lg text-xs font-semibold font-cinzel transition-all cursor-pointer truncate ${
+                      activeSlideIndex === idx
+                        ? "bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold shadow-md"
+                        : "bg-slate-800 text-slate-300 hover:text-white"
+                    }`}
+                  >
+                    {slide.tag}
+                  </button>
+                ))}
+              </div>
+
+              <a
+                href={currentSlide.src}
+                download
+                className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-amber-300 border border-amber-500/30 transition-colors"
+                title="Download high-resolution image"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Save Image</span>
+              </a>
+            </div>
+
           </div>
         </div>
       )}

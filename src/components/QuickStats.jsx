@@ -41,9 +41,9 @@ export default function QuickStats() {
     },
     {
       icon: Building2,
-      value: "5",
+      value: "7",
       label: "Industry Symposia",
-      subtext: "Novartis, Cipla, GSK, Novo, Lilly",
+      subtext: "Novartis, GSK, Novo, Cipla, Lilly, Sanofi",
       color: "from-amber-600/20 to-yellow-500/20",
       textColor: "text-amber-300",
       borderColor: "border-amber-500/30",

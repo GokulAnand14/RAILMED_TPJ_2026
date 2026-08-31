@@ -1,5 +1,5 @@
 import React from "react";
-import { Stethoscope, Calendar, MapPin, Mail, Phone, ArrowUp, Download, Sparkles, ShieldCheck } from "lucide-react";
+import { Stethoscope, Calendar, MapPin, ArrowUp, Download, Sparkles, ShieldCheck } from "lucide-react";
 
 export default function Footer({ onNavigate, onOpenPocketSchedule }) {
   const scrollToTop = () => {
@@ -85,6 +85,11 @@ export default function Footer({ onNavigate, onOpenPocketSchedule }) {
                 </button>
               </li>
               <li>
+                <button onClick={() => onNavigate("gallery")} className="hover:text-amber-300 transition-colors cursor-pointer text-amber-200 font-semibold">
+                  Photo Gallery Archive (300+ Photos)
+                </button>
+              </li>
+              <li>
                 <button onClick={() => onNavigate("schedule")} className="hover:text-amber-300 transition-colors cursor-pointer">
                   2-Day Scientific Schedule (22 Sessions)
                 </button>
@@ -107,6 +112,16 @@ export default function Footer({ onNavigate, onOpenPocketSchedule }) {
               <li>
                 <button onClick={() => onNavigate("invitation")} className="hover:text-amber-300 transition-colors cursor-pointer">
                   Official Invitation Card
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate("resources")} className="hover:text-amber-300 transition-colors cursor-pointer text-emerald-300 font-semibold">
+                  Learning Resources (35+ PPTs)
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate("timetable")} className="hover:text-amber-300 transition-colors cursor-pointer text-amber-300 font-semibold">
+                  Pocket Timetable & QR Code
                 </button>
               </li>
             </ul>
@@ -136,22 +151,20 @@ export default function Footer({ onNavigate, onOpenPocketSchedule }) {
           {/* Col 4: Official Helpdesk & Contacts */}
           <div className="space-y-3">
             <h4 className="font-bold text-amber-300 uppercase tracking-wider text-xs font-cinzel mb-3.5">
-              Secretariat & Helpdesk
+              Secretariat & Venue
             </h4>
             <div className="space-y-2 text-xs text-slate-400">
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
-                <span>Cauvery Meeting Hall, DRM Campus, Golden Rock, Tiruchirappalli – 620004</span>
+                <span>Cauvery Meeting Hall, DRM Campus, Tiruchchirappalli – 620001</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <Stethoscope className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
+                <span>Divisional Railway Hospital, Golden Rock (GOC), TPJ</span>
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-amber-400 flex-shrink-0" />
-                <a href="mailto:railmed.tpj2026@gmail.com" className="hover:text-amber-300 text-white font-medium">
-                  railmed.tpj2026@gmail.com
-                </a>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-amber-400 flex-shrink-0" />
-                <span>+91 94868 00000 | 0431-2460555</span>
+                <ShieldCheck className="w-4 h-4 text-amber-400 flex-shrink-0" />
+                <span>Indian Railways Helpline: 139</span>
               </div>
             </div>
           </div>

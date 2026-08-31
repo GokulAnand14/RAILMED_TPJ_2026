@@ -1,9 +1,10 @@
 export const venueData = {
   city: "Tiruchirappalli (Trichy / TPJ)",
   state: "Tamil Nadu, India",
-  venueName: "Cauvery Meeting Hall, Divisional Railway Hospital",
-  campus: "Golden Rock (GOC) / Tiruchirappalli Railway Division",
-  address: "Cauvery Meeting Hall, Railway Colony, Golden Rock, Tiruchirappalli, Tamil Nadu 620004",
+  venueName: "Cauvery Meeting Hall, DRM Office Campus",
+  campus: "Divisional Railway Hospital & DRM Campus, Golden Rock (GOC), Tiruchirappalli",
+  address: "Cauvery Meeting Hall, DRM Office Campus, Tiruchchirappalli, Tamil Nadu 620001",
+  hospitalAddress: "Divisional Railway Hospital, Railway Colony, Golden Rock (GOC), Tiruchirappalli, Tamil Nadu 620004",
   dates: "19th & 20th September 2026",
   coordinates: {
     lat: 10.7852,
@@ -64,9 +65,9 @@ export const venueData = {
     }
   ],
   emergencyContacts: [
-    { title: "Conference Helpdesk (GOC / TPJ)", phone: "+91 94868 00000" },
-    { title: "Railway Hospital Emergency / Casualty", phone: "0431-2460555 / 139" },
-    { title: "Accommodation & Hospitality Desk", phone: "+91 94433 11223" },
-    { title: "Transport & Transit Assistance", phone: "+91 98424 55667" }
+    { title: "Conference Secretarial Desk", desk: "Cauvery Meeting Hall, DRM Campus, TPJ" },
+    { title: "Divisional Railway Hospital", desk: "Golden Rock (GOC), Tiruchirappalli - 620004" },
+    { title: "Indian Railways Nationwide Passenger Helpline", helpline: "139" },
+    { title: "Organising Committee Support", desk: "Southern Railway Medical Department, TPJ Division" }
   ]
 };
