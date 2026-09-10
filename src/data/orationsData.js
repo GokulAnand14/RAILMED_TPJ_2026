@@ -30,8 +30,8 @@ export const orationsList = [
     id: "oration-rahulan",
     title: "Dr Rahulan Oration",
     topic: "Role of Family Physician in Metabolic diseases",
-    day: "Day 2 - Sunday, 20th September 2026",
-    time: "14:00 to 14:30 hrs",
+    day: "Day 1 - Saturday, 19th September 2026",
+    time: "15:30 to 16:00 hrs",
     orator: {
       name: "Dr P.S. Nazneen",
       designation: "Sr DMO (Senior Divisional Medical Officer)",
@@ -41,10 +41,22 @@ export const orationsList = [
       avatarText: "PN",
     },
     chairperson: {
-      name: "Dr U.K. Perumal",
-      designation: "PCMD PER (Retd PCMD)",
-      hospital: "Southern Railway Headquarters",
+      name: "Dr U.K. Perumal & Dr Vijayalakshmi R Natarajan",
+      designation: "PCMD PER & CMS TPJ",
+      hospital: "Southern Railway Headquarters & TPJ Division",
     },
+    chairpersons: [
+      {
+        name: "Dr U.K. Perumal",
+        designation: "PCMD PER",
+        hospital: "Southern Railway Headquarters",
+      },
+      {
+        name: "Dr Vijayalakshmi R Natarajan",
+        designation: "CMS TPJ",
+        hospital: "Divisional Railway Hospital, Golden Rock (GOC), TPJ",
+      },
+    ],
     abstract: "Metabolic syndrome, non-alcoholic fatty liver disease, and type 2 diabetes have reached epidemic proportions. The family physician and health unit medical officer serve as the crucial frontline in early screening, lifestyle modification counseling, medication adherence, and holistic longitudinal care. This oration honors the legacy of Dr. Rahulan by charting practical frameworks for primary care clinicians.",
     keyTakeaways: [
       "Proactive cardiometabolic risk stratification in workplace and family health units",

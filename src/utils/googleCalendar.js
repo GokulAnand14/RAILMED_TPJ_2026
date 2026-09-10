@@ -31,10 +31,10 @@ export function getGoogleCalendarUrl(session) {
     speakerDetails += `Chairpersons: ${session.chairpersons.map(c => `${c.name} (${c.designation})`).join(", ")}\n`;
   }
 
-  const details = `${session.description || session.topic}\n\n${speakerDetails}\nEvent: RAILMED TPJ CME 2026\nVenue: ${session.location || "Cauvery Meeting Hall, DRM Office Campus, Divisional Railway Hospital, Golden Rock, Tiruchirappalli"}`;
+  const details = `${session.description || session.topic}\n\n${speakerDetails}\nEvent: RAILMED TPJ CME 2026\nVenue: ${session.location || "Cauvery Meeting Hall, DRM Office Campus, Tiruchchirappalli - 620001"}\nHost Hospital: Divisional Railway Hospital, Golden Rock (GOC)`;
 
   const title = `RAILMED 2026: ${session.topic}`;
-  const location = session.location || "Cauvery Meeting Hall, Divisional Railway Hospital, Golden Rock, Tiruchirappalli";
+  const location = session.location || "Cauvery Meeting Hall, DRM Office Campus, Bharathiyar Salai, Tiruchchirappalli - 620001";
 
   return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startIso}/${endIso}&ctz=Asia/Kolkata&details=${encodeURIComponent(details)}&location=${encodeURIComponent(location)}`;
 }
@@ -43,8 +43,8 @@ export function getFullConferenceGoogleCalendarUrl() {
   const title = "RAILMED TPJ CME 2026 - Southern Railway Annual Conclave";
   const startIso = "20260919T080000";
   const endIso = "20260920T170000";
-  const details = "Annual Continuing Medical Education Conclave on Non-Communicable Diseases (Cancer, Diabetes, Hypertension, Cardiology) organized by Southern Railway Medical Department.\n\nAccredited by Tamil Nadu Medical Council (TNMC) with 4 Credit Hours.\nVenue: Cauvery Meeting Hall, DRM Campus, Golden Rock, Tiruchirappalli";
-  const location = "Cauvery Meeting Hall, DRM Office Campus, Divisional Railway Hospital, Golden Rock, Tiruchirappalli";
+  const details = "Annual Continuing Medical Education Conclave on Non-Communicable Diseases (Cancer, Diabetes, Hypertension, Cardiology) organized by Southern Railway Medical Department.\n\nAccredited by Tamil Nadu Medical Council (TNMC) with 4 Credit Hours.\nVenue: Cauvery Meeting Hall, DRM Office Campus, Tiruchchirappalli - 620001\nHost Hospital: Divisional Railway Hospital, Golden Rock (GOC)";
+  const location = "Cauvery Meeting Hall, DRM Office Campus, Bharathiyar Salai, Tiruchchirappalli - 620001";
 
   return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startIso}/${endIso}&ctz=Asia/Kolkata&details=${encodeURIComponent(details)}&location=${encodeURIComponent(location)}`;
 }

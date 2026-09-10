@@ -1,7 +1,7 @@
 import React from "react";
 import { Stethoscope, Calendar, MapPin, ArrowUp, Download, Sparkles, ShieldCheck } from "lucide-react";
 
-export default function Footer({ onNavigate, onOpenPocketSchedule }) {
+export default function Footer({ onNavigate, onOpenPocketSchedule, onOpenCertificateModal }) {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -67,10 +67,13 @@ export default function Footer({ onNavigate, onOpenPocketSchedule }) {
               Annual Continuing Medical Education Conclave under the aegis of <strong className="text-amber-200">Southern Railway Medical Department</strong> and Indian Railway Medical Service Association.
             </p>
 
-            <div className="pt-2 text-[11px] text-emerald-400 flex items-center gap-1.5 font-semibold">
+            <button
+              onClick={onOpenCertificateModal}
+              className="pt-2 text-[11px] text-emerald-400 hover:text-emerald-300 flex items-center gap-1.5 font-semibold cursor-pointer transition-colors"
+            >
               <ShieldCheck className="w-4 h-4" />
-              <span>TNMC 4 Credit Hours Accredited</span>
-            </div>
+              <span>TNMC 4 Credit Hours (Download Certificate)</span>
+            </button>
           </div>
 
           {/* Col 2: Multi-Page Links */}
@@ -91,7 +94,7 @@ export default function Footer({ onNavigate, onOpenPocketSchedule }) {
               </li>
               <li>
                 <button onClick={() => onNavigate("schedule")} className="hover:text-amber-300 transition-colors cursor-pointer">
-                  2-Day Scientific Schedule (22 Sessions)
+                  2-Day Scientific Schedule (21 Sessions)
                 </button>
               </li>
               <li>
@@ -112,6 +115,12 @@ export default function Footer({ onNavigate, onOpenPocketSchedule }) {
               <li>
                 <button onClick={() => onNavigate("invitation")} className="hover:text-amber-300 transition-colors cursor-pointer">
                   Official Invitation Card
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate("certificate")} className="hover:text-amber-300 transition-colors cursor-pointer text-emerald-400 font-semibold flex items-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  <span>TNMC Accreditation Certificate (PDF)</span>
                 </button>
               </li>
               <li>

@@ -92,9 +92,21 @@ export default function OrationsSpotlight() {
                 <div className="p-3 rounded-xl bg-[#07132e]/70 border border-slate-700/60 mb-5 flex items-start gap-2.5">
                   <ShieldCheck className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
                   <div className="text-xs text-slate-300">
-                    <span className="text-slate-400">Session Chairperson: </span>
-                    <strong className="text-amber-200 font-cinzel">{oration.chairperson.name}</strong>
-                    <span className="text-slate-400"> ({oration.chairperson.designation})</span>
+                    <span className="text-slate-400">Session Chairperson{oration.chairpersons?.length > 1 ? "s" : ""}: </span>
+                    {oration.chairpersons && oration.chairpersons.length > 0 ? (
+                      oration.chairpersons.map((c, cIdx) => (
+                        <span key={cIdx}>
+                          {cIdx > 0 && " & "}
+                          <strong className="text-amber-200 font-cinzel">{c.name}</strong>
+                          <span className="text-slate-400"> ({c.designation})</span>
+                        </span>
+                      ))
+                    ) : (
+                      <>
+                        <strong className="text-amber-200 font-cinzel">{oration.chairperson?.name}</strong>
+                        <span className="text-slate-400"> ({oration.chairperson?.designation})</span>
+                      </>
+                    )}
                   </div>
                 </div>
 

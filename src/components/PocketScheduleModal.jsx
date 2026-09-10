@@ -231,9 +231,20 @@ export default function PocketScheduleModal({ isOpen, onClose, onOpenFullPage })
             <p className="text-xs font-semibold text-slate-700">
               19th & 20th September 2026 • Cauvery Meeting Hall, DRM Office Campus, TPJ
             </p>
-            <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-400 text-[11px] font-bold mt-1">
-              <CheckCircle2 className="w-3 h-3 text-emerald-700" />
-              <span>TNMC 4 Credit Hours Accredited</span>
+            <div className="flex flex-wrap items-center justify-center gap-2 mt-1">
+              <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-400 text-[11px] font-bold">
+                <CheckCircle2 className="w-3 h-3 text-emerald-700" />
+                <span>TNMC 4 Credit Hours Accredited</span>
+              </div>
+              <a
+                href="/TNMC_CME_Certificate_RAILMED_TPJ_2026.pdf"
+                download="TNMC_CME_Certificate_RAILMED_TPJ_2026.pdf"
+                className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-700 hover:bg-emerald-800 text-white text-[11px] font-bold transition-colors no-print cursor-pointer shadow-xs"
+                title="Download Official Certificate PDF"
+              >
+                <Download className="w-3 h-3" />
+                <span>Download Certificate (PDF)</span>
+              </a>
             </div>
           </div>
 
@@ -245,7 +256,9 @@ export default function PocketScheduleModal({ isOpen, onClose, onOpenFullPage })
                   <Calendar className="w-4 h-4 text-amber-400" />
                   <span>DAY 1: Saturday, 19th September 2026</span>
                 </h4>
-                <span className="text-xs font-bold text-amber-300">11 Scientific Sessions</span>
+                <span className="text-xs font-bold text-amber-300">
+                  {day1Schedule.filter((s) => s.category !== "general" || s.speaker).length} Sessions
+                </span>
               </div>
 
               <div className="overflow-x-auto">
@@ -279,7 +292,7 @@ export default function PocketScheduleModal({ isOpen, onClose, onOpenFullPage })
                           <div className="font-bold text-slate-900">{s.topic}</div>
                           {s.category === "oration" && (
                             <span className="text-[10px] text-amber-800 font-bold uppercase tracking-wider block">
-                              ★ Dr. Sai Dhandapani Memorial Oration
+                              ★ {s.orationName || "Memorial Oration"}
                             </span>
                           )}
                           {s.category === "panel" && (
@@ -326,7 +339,9 @@ export default function PocketScheduleModal({ isOpen, onClose, onOpenFullPage })
                   <Calendar className="w-4 h-4 text-amber-400" />
                   <span>DAY 2: Sunday, 20th September 2026</span>
                 </h4>
-                <span className="text-xs font-bold text-amber-300">11 Scientific Sessions</span>
+                <span className="text-xs font-bold text-amber-300">
+                  {day2Schedule.filter((s) => s.category !== "general" || s.speaker).length} Sessions
+                </span>
               </div>
 
               <div className="overflow-x-auto">
@@ -360,7 +375,7 @@ export default function PocketScheduleModal({ isOpen, onClose, onOpenFullPage })
                           <div className="font-bold text-slate-900">{s.topic}</div>
                           {s.category === "oration" && (
                             <span className="text-[10px] text-amber-800 font-bold uppercase tracking-wider block">
-                              ★ Dr. Rahulan Memorial Oration
+                              ★ {s.orationName || "Memorial Oration"}
                             </span>
                           )}
                           {s.category === "panel" && (

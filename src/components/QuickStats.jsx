@@ -23,8 +23,8 @@ export default function QuickStats() {
     },
     {
       icon: BookOpen,
-      value: "22",
-      label: "Scientific Sessions",
+      value: "21",
+      label: "Agenda Sessions",
       subtext: "Across 2 High-Yield Days",
       color: "from-blue-500/20 to-indigo-500/20",
       textColor: "text-blue-400",
@@ -32,7 +32,7 @@ export default function QuickStats() {
     },
     {
       icon: Users,
-      value: "30+",
+      value: "35+",
       label: "Expert Faculty",
       subtext: "JIPMER, PER, GOC & Apex Institutes",
       color: "from-purple-500/20 to-pink-500/20",
@@ -41,9 +41,9 @@ export default function QuickStats() {
     },
     {
       icon: Building2,
-      value: "7",
+      value: "5",
       label: "Industry Symposia",
-      subtext: "Novartis, GSK, Novo, Cipla, Lilly, Sanofi",
+      subtext: "Cipla, Novartis, Novo, Sanofi, Lilly",
       color: "from-amber-600/20 to-yellow-500/20",
       textColor: "text-amber-300",
       borderColor: "border-amber-500/30",

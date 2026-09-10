@@ -2,35 +2,36 @@ export const venueData = {
   city: "Tiruchirappalli (Trichy / TPJ)",
   state: "Tamil Nadu, India",
   venueName: "Cauvery Meeting Hall, DRM Office Campus",
-  campus: "Divisional Railway Hospital & DRM Campus, Golden Rock (GOC), Tiruchirappalli",
-  address: "Cauvery Meeting Hall, DRM Office Campus, Tiruchchirappalli, Tamil Nadu 620001",
+  campus: "Divisional Railway Manager (DRM) Office Campus, Southern Railway",
+  address: "Cauvery Meeting Hall, DRM Office Campus, Bharathiyar Salai, Sangillyandapuram, Tiruchchirappalli, Tamil Nadu 620001",
   hospitalAddress: "Divisional Railway Hospital, Railway Colony, Golden Rock (GOC), Tiruchirappalli, Tamil Nadu 620004",
   dates: "19th & 20th September 2026",
   coordinates: {
-    lat: 10.7852,
-    lng: 78.7188,
+    lat: 10.7938,
+    lng: 78.6856,
   },
+  mapUrl: "https://maps.google.com/?q=Cauvery+Meeting+Hall+DRM+Office+Campus+Tiruchirappalli",
   connectivity: [
     {
-      mode: "Railway Connectivity (TPJ / GOC)",
+      mode: "Railway Connectivity (TPJ)",
       icon: "train",
-      title: "Tiruchirappalli Junction (TPJ) & Golden Rock (GOC)",
-      details: "Tiruchirappalli Junction (TPJ) is an A1-category major railway junction in Southern Railway with direct superfast and Vande Bharat connectivity to Chennai (MAS/MS), Bangalore (SBC), Madurai (MDU), Coimbatore (CBE), Trivandrum (TVC), and Cochin.",
-      distance: "approx. 4.5 km from TPJ Junction / 1.0 km from GOC Station"
+      title: "Tiruchirappalli Junction (TPJ)",
+      details: "Tiruchirappalli Junction (TPJ) is an A1-category major railway junction in Southern Railway with direct superfast and Vande Bharat connectivity to Chennai (MAS/MS), Bangalore (SBC), Madurai (MDU), Coimbatore (CBE), Trivandrum (TVC), and Cochin. The DRM Office Campus is adjacent to the junction.",
+      distance: "approx. 600 meters from TPJ Junction (2-3 mins walk / auto) • 6 km from GOC Station"
     },
     {
       mode: "Air Connectivity (TRZ)",
       icon: "plane",
       title: "Tiruchirappalli International Airport (TRZ)",
       details: "State-of-the-art international terminal with frequent direct flights from Chennai, Bengaluru, Mumbai, Hyderabad, as well as international connections from Singapore, Dubai, Sharjah, and Colombo.",
-      distance: "approx. 7.5 km from Conference Venue (15-20 mins by taxi)"
+      distance: "approx. 6.8 km from DRM Campus Venue (15 mins by taxi)"
     },
     {
-      mode: "Road & Highway",
+      mode: "Road & Highway (CBS)",
       icon: "car",
-      title: "National Highways (NH 45 / NH 83 / NH 336)",
-      details: "Prime transit hub on the Grand Southern Trunk Road (NH 45) with excellent connectivity across Tamil Nadu and neighboring states. Central Bus Stand (CBS) is within 5 km.",
-      distance: "Central Bus Stand: 5.2 km"
+      title: "National Highways (NH 45 / NH 83) & Central Bus Stand",
+      details: "Prime transit hub on the Grand Southern Trunk Road (NH 45) with excellent road connectivity across Tamil Nadu. Tiruchirappalli Central Bus Stand (CBS) is located close to the DRM Office Campus.",
+      distance: "approx. 1.5 km from Central Bus Stand (CBS)"
     }
   ],
   weatherInfo: {

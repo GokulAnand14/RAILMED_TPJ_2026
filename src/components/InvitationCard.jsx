@@ -210,9 +210,19 @@ Timetable: ${timetableUrl}`;
               <p className="mb-2 font-medium">
                 The programme has been meticulously planned to cover various topics of interest on <strong className="text-slate-900">Non-Communicable Diseases including Cancer, Diabetes and Hypertension</strong>, which will help us keep abreast with modern updates and thereby improve patient care.
               </p>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300 font-bold text-xs">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-700" />
-                <span>Accredited by Tamil Nadu Medical Council (TNMC) with 4 Credit Hours</span>
+              <div className="flex flex-wrap items-center justify-center gap-2 mt-2">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300 font-bold text-xs">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-700" />
+                  <span>Accredited by Tamil Nadu Medical Council (TNMC) • 4 Credit Hours (Cert # C11181666)</span>
+                </div>
+                <a
+                  href="/TNMC_CME_Certificate_RAILMED_TPJ_2026.pdf"
+                  download="TNMC_CME_Certificate_RAILMED_TPJ_2026.pdf"
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs transition-colors shadow-xs"
+                >
+                  <Download className="w-3 h-3" />
+                  <span>Download Certificate (PDF)</span>
+                </a>
               </div>
             </div>
 

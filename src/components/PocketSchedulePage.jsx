@@ -107,10 +107,16 @@ export default function PocketSchedulePage({ onNavigate }) {
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="hidden md:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 text-[11px] font-bold">
+              <a
+                href="/TNMC_CME_Certificate_RAILMED_TPJ_2026.pdf"
+                download="TNMC_CME_Certificate_RAILMED_TPJ_2026.pdf"
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/80 hover:bg-emerald-900 text-emerald-300 border border-emerald-500/40 text-[11px] font-bold transition-all cursor-pointer shadow-xs"
+                title="Download Official TNMC Accreditation Certificate"
+              >
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                 <span>TNMC 4 Credit Hours</span>
-              </span>
+                <span className="text-[10px] bg-emerald-500/20 text-emerald-200 px-1 rounded font-mono">PDF ↓</span>
+              </a>
             </div>
           </div>
 
@@ -124,7 +130,7 @@ export default function PocketSchedulePage({ onNavigate }) {
                   selectedDay === "all" ? "bg-amber-600 text-white shadow-xs" : "text-amber-900 hover:bg-amber-200/60"
                 }`}
               >
-                Full 2-Day Agenda (22 Slots)
+                Full Agenda ({day1Schedule.length + day2Schedule.length} Sessions)
               </button>
               <button
                 onClick={() => setSelectedDay("day1")}
@@ -182,7 +188,9 @@ export default function PocketSchedulePage({ onNavigate }) {
                     <Calendar className="w-4 h-4 text-amber-400" />
                     <span>DAY 1: Saturday, 19th September 2026</span>
                   </h3>
-                  <span className="text-xs font-bold text-amber-300">11 Scientific Sessions</span>
+                  <span className="text-xs font-bold text-amber-300">
+                    {day1Schedule.filter((s) => s.category !== "general" || s.speaker).length} Sessions
+                  </span>
                 </div>
 
                 <div className="overflow-x-auto">
@@ -216,7 +224,7 @@ export default function PocketSchedulePage({ onNavigate }) {
                             <div className="font-bold text-slate-900">{s.topic}</div>
                             {s.category === "oration" && (
                               <span className="text-[10px] text-amber-800 font-bold uppercase tracking-wider block">
-                                ★ Dr. Sai Dhandapani Memorial Oration
+                                ★ {s.orationName || "Memorial Oration"}
                               </span>
                             )}
                             {s.category === "panel" && (
@@ -263,7 +271,9 @@ export default function PocketSchedulePage({ onNavigate }) {
                     <Calendar className="w-4 h-4 text-amber-400" />
                     <span>DAY 2: Sunday, 20th September 2026</span>
                   </h3>
-                  <span className="text-xs font-bold text-amber-300">11 Scientific Sessions</span>
+                  <span className="text-xs font-bold text-amber-300">
+                    {day2Schedule.filter((s) => s.category !== "general" || s.speaker).length} Sessions
+                  </span>
                 </div>
 
                 <div className="overflow-x-auto">
@@ -297,7 +307,7 @@ export default function PocketSchedulePage({ onNavigate }) {
                             <div className="font-bold text-slate-900">{s.topic}</div>
                             {s.category === "oration" && (
                               <span className="text-[10px] text-amber-800 font-bold uppercase tracking-wider block">
-                                ★ Dr. Rahulan Memorial Oration
+                                ★ {s.orationName || "Memorial Oration"}
                               </span>
                             )}
                             {s.category === "panel" && (

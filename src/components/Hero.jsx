@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { 
   Calendar, Building2, ArrowRight, Download, Clock, 
-  Award, Sparkles, ShieldCheck, Users, MapPin, FileText, Maximize2, X, ExternalLink, Camera, BookOpen,
-  ChevronLeft, ChevronRight, Heart
+  ShieldCheck, Maximize2, X, ExternalLink, Camera,
+  ChevronLeft, ChevronRight, Heart, Sparkles
 } from "lucide-react";
 import { openGoogleCalendar } from "../utils/googleCalendar";
 import { playChime } from "../utils/soundEffects";
 
-export default function Hero({ onNavigate, onOpenPocketSchedule }) {
+export default function Hero({ onNavigate, onOpenPocketSchedule, onOpenCertificateModal }) {
   // Target Conference Date: September 19, 2026 08:00 AM IST
   const targetDate = new Date("2026-09-19T08:00:00+05:30").getTime();
   const [showPosterModal, setShowPosterModal] = useState(false);
@@ -108,133 +108,71 @@ export default function Hero({ onNavigate, onOpenPocketSchedule }) {
     return () => clearInterval(interval);
   }, [targetDate]);
 
-  const pageCards = [
-    {
-      id: "gallery",
-      title: "Conclave Photo Archive",
-      desc: "300+ High-resolution photo moments, clinical proceedings & leadership archive",
-      icon: Camera,
-      badge: "300+ Photos",
-      color: "from-amber-500/20 to-rose-500/20",
-      borderColor: "border-amber-500/40"
-    },
-    {
-      id: "schedule",
-      title: "Scientific Schedule",
-      desc: "22 Sessions across 2 days with track filters, live search & Google Calendar sync",
-      icon: Calendar,
-      badge: "2-Day Agenda",
-      color: "from-blue-500/20 to-indigo-500/20",
-      borderColor: "border-blue-500/40"
-    },
-    {
-      id: "orations",
-      title: "Memorial Orations & Panels",
-      desc: "Dr. Sai Dhandapani & Dr. Rahulan Memorials + Multidisciplinary Panels",
-      icon: Award,
-      badge: "Flagship Keynotes",
-      color: "from-amber-500/20 to-amber-600/20",
-      borderColor: "border-amber-500/40"
-    },
-    {
-      id: "faculty",
-      title: "Faculty & Symposia",
-      desc: "30+ Specialist Doctors (JIPMER, RH Perambur) & 5 Pharmaceutical Tracks",
-      icon: Users,
-      badge: "30+ Doctors",
-      color: "from-purple-500/20 to-pink-500/20",
-      borderColor: "border-purple-500/40"
-    },
-    {
-      id: "venue",
-      title: "Venue & Trichy Guide",
-      desc: "Cauvery Meeting Hall transit hubs & Srirangam / Rockfort heritage tours",
-      icon: MapPin,
-      badge: "Travel & Tours",
-      color: "from-teal-500/20 to-emerald-500/20",
-      borderColor: "border-teal-500/40"
-    },
-    {
-      id: "invitation",
-      title: "Official Invitation Card",
-      desc: "Digital replica & high-resolution scan of official Conclave letter with QR Code",
-      icon: FileText,
-      badge: "Executive Notice",
-      color: "from-amber-400/20 to-yellow-500/20",
-      borderColor: "border-amber-400/50"
-    },
-    {
-      id: "resources",
-      title: "Learning Resources",
-      desc: "35 Official PPT slide decks from CNE presentations, viewable & downloadable",
-      icon: BookOpen,
-      badge: "35+ PPTs",
-      color: "from-amber-500/20 to-emerald-500/20",
-      borderColor: "border-amber-500/40"
-    },
-    {
-      id: "timetable",
-      title: "Pocket Timetable & QR",
-      desc: "Instant printable 2-day timetable URL, mobile QR code & PDF download",
-      icon: Download,
-      badge: "Print & QR",
-      color: "from-amber-500/20 to-orange-500/20",
-      borderColor: "border-amber-500/40"
-    }
-  ];
-
   const currentSlide = heroSlides[activeSlideIndex];
 
   return (
-    <section className="relative pt-32 pb-16 sm:pt-40 sm:pb-20 overflow-hidden">
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+    <section className="relative pt-28 pb-12 sm:pt-36 sm:pb-16 overflow-hidden">
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
         
-        {/* Main Central Hero Title & Badges */}
-        <div className="text-center max-w-4xl mx-auto">
-          {/* Top Royal Tag */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500/20 via-amber-400/25 to-amber-600/20 border border-amber-400/50 mb-4 shadow-lg shadow-amber-500/10">
-            <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
-            <span className="text-xs sm:text-sm font-bold text-amber-300 font-cinzel tracking-wider uppercase">
+        {/* Main Central Hero Header */}
+        <div className="text-center max-w-3xl mx-auto mb-10">
+          
+          {/* Top Division Tag */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-400/40 mb-3.5 shadow-md">
+            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+            <span className="text-[11px] sm:text-xs font-bold text-amber-300 font-cinzel tracking-wider uppercase">
               Southern Railway • Tiruchchirappalli Division
             </span>
           </div>
 
           {/* Main Conclave Name */}
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black font-cinzel tracking-tight text-white mb-4 drop-shadow-md">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black font-cinzel tracking-tight text-white mb-3 drop-shadow-md">
             RAILMED TPJ <span className="text-gold-gradient">CME 2026</span>
           </h1>
 
-          {/* Subheading from Ground Truth */}
-          <p className="text-sm sm:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed mb-6 font-medium">
-            Annual Continuing Medical Education Conclave covering various topics of interest on Non-Communicable Diseases (NCD) including <strong className="text-amber-300">Cancer, Diabetes and Hypertension</strong> to keep abreast with modern clinical updates and elevate patient care.
+          {/* Concise Theme Description */}
+          <p className="text-xs sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed mb-6 font-medium">
+            Annual Continuing Medical Education Conclave focusing on Non-Communicable Diseases (NCDs) — <strong className="text-amber-300">Cancer, Diabetes & Hypertension</strong> to advance clinical practice and patient care.
           </p>
 
-          {/* Date, Location & Accreditation Badges */}
-          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-slate-200 mb-8">
-            <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#0a1838]/80 border border-amber-500/30 shadow-md backdrop-blur-md">
-              <Calendar className="w-4 h-4 text-amber-400" />
-              <span className="font-bold text-amber-200 font-cinzel">19th & 20th September 2026</span>
+          {/* Clean Unified Event Meta Strip */}
+          <div className="inline-flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs text-slate-200 mb-6 p-1.5 sm:p-2 rounded-2xl bg-[#0a1838]/70 border border-amber-500/25 backdrop-blur-md shadow-lg">
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/10 text-amber-200 font-cinzel font-bold">
+              <Calendar className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />
+              <span>19th & 20th Sept 2026</span>
             </div>
 
-            <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#0a1838]/80 border border-amber-500/30 shadow-md backdrop-blur-md">
-              <Building2 className="w-4 h-4 text-amber-400" />
-              <span className="font-semibold text-slate-200">Cauvery Meeting Hall, DRM Office Campus, TPJ</span>
+            <div className="hidden sm:block text-slate-600">•</div>
+
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-slate-300 font-medium">
+              <Building2 className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />
+              <span>Cauvery Meeting Hall, DRM Campus, TPJ</span>
             </div>
 
-            <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-950/70 to-teal-950/70 border border-emerald-500/40 shadow-md text-emerald-300">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              <span className="font-bold">TNMC 4 Credit Hours Accredited</span>
-            </div>
+            <div className="hidden sm:block text-slate-600">•</div>
+
+            <button
+              onClick={() => {
+                playChime();
+                if (onOpenCertificateModal) onOpenCertificateModal();
+              }}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-950/60 hover:bg-emerald-900/80 border border-emerald-500/40 text-emerald-300 font-bold transition-all cursor-pointer group shadow-sm"
+              title="Click to inspect & download official TNMC Certificate (C11181666)"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0 group-hover:scale-110 transition-transform" />
+              <span>TNMC 4 Credit Hours</span>
+              <span className="text-[10px] bg-emerald-500/20 text-emerald-200 px-1.5 py-0.2 rounded font-mono font-bold">PDF ↓</span>
+            </button>
           </div>
 
-          {/* Action CTAs */}
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-12">
+          {/* Focused Action CTAs (2 Primary Buttons + 1 Subtle Quick-Link) */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-4">
             <button
               onClick={() => {
                 playChime();
                 onNavigate("schedule");
               }}
-              className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs sm:text-sm transition-all shadow-lg shadow-amber-500/25 flex items-center justify-center gap-2 group cursor-pointer active:scale-95"
+              className="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs sm:text-sm transition-all shadow-lg shadow-amber-500/25 flex items-center justify-center gap-2 group cursor-pointer active:scale-95 font-cinzel"
             >
               <span>Explore 2-Day Agenda</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -243,57 +181,50 @@ export default function Hero({ onNavigate, onOpenPocketSchedule }) {
             <button
               onClick={() => {
                 playChime();
-                onNavigate("gallery");
+                onOpenPocketSchedule();
               }}
-              className="px-5 py-3 rounded-xl bg-gradient-to-r from-amber-500/20 via-amber-400/25 to-amber-600/20 hover:from-amber-500/30 hover:to-amber-400/35 border border-amber-400/60 text-amber-200 font-bold text-xs sm:text-sm transition-all shadow-lg shadow-amber-500/10 flex items-center justify-center gap-2 cursor-pointer group"
-            >
-              <Camera className="w-4 h-4 text-amber-400 group-hover:scale-110 transition-transform" />
-              <span>300+ Photo Gallery</span>
-            </button>
-
-            <button
-              onClick={() => {
-                playChime();
-                onNavigate("invitation");
-              }}
-              className="px-5 py-3 rounded-xl bg-[#0a193d]/90 hover:bg-[#0f2352] border border-amber-400/40 text-amber-200 font-bold text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer group"
-            >
-              <Sparkles className="w-4 h-4 text-amber-400 group-hover:rotate-12 transition-transform" />
-              <span>Official Invitation Card</span>
-            </button>
-
-            <button
-              onClick={onOpenPocketSchedule}
-              className="px-5 py-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700 text-slate-200 font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 cursor-pointer group"
+              className="w-full sm:w-auto px-5 py-3 rounded-xl bg-[#0a193d]/90 hover:bg-[#0f2352] border border-amber-400/40 text-amber-200 font-bold text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer group active:scale-95 font-cinzel"
             >
               <Download className="w-4 h-4 text-amber-400 group-hover:scale-110 transition-transform" />
               <span>Pocket Timetable & QR</span>
             </button>
           </div>
+
+          {/* Quick jump to photo gallery */}
+          <button
+            onClick={() => {
+              playChime();
+              onNavigate("gallery");
+            }}
+            className="text-[11px] sm:text-xs text-slate-400 hover:text-amber-300 transition-colors inline-flex items-center gap-1 cursor-pointer font-medium"
+          >
+            <Camera className="w-3.5 h-3.5 text-amber-400/80" />
+            <span>View 300+ Photo Gallery Archive ↓</span>
+          </button>
         </div>
 
-        {/* Grand Interactive Slideshow Showcase & Live Countdown */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center max-w-6xl mx-auto mb-16">
+        {/* Grand Showcase: Artwork Carousel + Live Countdown */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center max-w-5xl mx-auto">
           
-          {/* Left Column: Interactive Hero Artwork Slideshow */}
+          {/* Left Column: Interactive Artwork Slideshow */}
           <div 
             className="lg:col-span-7 relative group"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
           >
             {/* Glowing Amber Atmosphere Halo */}
-            <div className="absolute -inset-1.5 bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 rounded-3xl blur-md opacity-35 group-hover:opacity-65 transition duration-500" />
+            <div className="absolute -inset-1 bg-gradient-to-r from-amber-500/30 via-yellow-500/20 to-amber-600/30 rounded-3xl blur-md opacity-40 group-hover:opacity-70 transition duration-500" />
             
-            <div className="relative rounded-2xl overflow-hidden border-2 border-amber-500/50 bg-[#040e24] shadow-2xl flex flex-col">
+            <div className="relative rounded-2xl overflow-hidden border border-amber-500/40 bg-[#040e24] shadow-2xl flex flex-col">
               
-              {/* Slide Image Frame with Smooth Crossfade */}
+              {/* Slide Image Frame */}
               <div 
                 onClick={() => {
                   playChime();
                   setShowPosterModal(true);
                 }}
                 className="relative w-full aspect-4/3 sm:aspect-16/10 bg-[#020713] overflow-hidden cursor-zoom-in group/slide flex items-center justify-center"
-                title="Click to view full high-resolution image in lightbox"
+                title="Click to view full image in lightbox"
               >
                 <img
                   key={currentSlide.id}
@@ -302,15 +233,15 @@ export default function Hero({ onNavigate, onOpenPocketSchedule }) {
                   className="w-full h-full object-contain bg-[#020713] transform group-hover/slide:scale-[1.02] transition duration-500 animate-in fade-in"
                 />
 
-                {/* Subtle vignette gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#030917] via-transparent to-transparent opacity-75 pointer-events-none" />
+                {/* Subtle bottom vignette gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#030917]/90 via-transparent to-transparent opacity-80 pointer-events-none" />
 
                 {/* Top Badge Overlay */}
-                <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none">
-                  <span className="px-3 py-1 rounded-full text-xs font-bold bg-slate-950/90 text-amber-300 border border-amber-400/50 backdrop-blur-md shadow-lg font-cinzel">
+                <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between pointer-events-none">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-950/90 text-amber-300 border border-amber-400/40 backdrop-blur-md shadow-md font-cinzel">
                     {currentSlide.badge}
                   </span>
-                  <span className="px-2.5 py-0.5 rounded-md text-[11px] font-bold font-mono bg-amber-500/20 text-amber-300 border border-amber-500/40 backdrop-blur-md shadow">
+                  <span className="px-2 py-0.5 rounded-md text-[10px] font-bold font-mono bg-amber-500/20 text-amber-300 border border-amber-500/30 backdrop-blur-md shadow">
                     {activeSlideIndex + 1} / {heroSlides.length}
                   </span>
                 </div>
@@ -322,10 +253,10 @@ export default function Hero({ onNavigate, onOpenPocketSchedule }) {
                     playChime();
                     prevSlide();
                   }}
-                  className="absolute left-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-slate-950/80 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-500/40 flex items-center justify-center transition-all opacity-80 hover:opacity-100 shadow-xl cursor-pointer active:scale-95"
+                  className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/80 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-500/40 flex items-center justify-center transition-all opacity-80 hover:opacity-100 shadow-lg cursor-pointer active:scale-95"
                   aria-label="Previous Slide"
                 >
-                  <ChevronLeft className="w-5 h-5" />
+                  <ChevronLeft className="w-4 h-4" />
                 </button>
 
                 <button
@@ -334,32 +265,32 @@ export default function Hero({ onNavigate, onOpenPocketSchedule }) {
                     playChime();
                     nextSlide();
                   }}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-slate-950/80 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-500/40 flex items-center justify-center transition-all opacity-80 hover:opacity-100 shadow-xl cursor-pointer active:scale-95"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/80 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-500/40 flex items-center justify-center transition-all opacity-80 hover:opacity-100 shadow-lg cursor-pointer active:scale-95"
                   aria-label="Next Slide"
                 >
-                  <ChevronRight className="w-5 h-5" />
+                  <ChevronRight className="w-4 h-4" />
                 </button>
 
-                {/* Bottom Bar Info Overlay */}
-                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between p-2.5 sm:p-3 rounded-xl bg-[#040d21]/95 backdrop-blur-md border border-amber-500/40 text-xs shadow-lg">
+                {/* Bottom Bar Info Caption */}
+                <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between p-2 sm:p-2.5 rounded-xl bg-[#040d21]/95 backdrop-blur-md border border-amber-500/30 text-xs shadow-lg">
                   <div className="overflow-hidden pr-2">
-                    <div className="font-bold text-amber-200 font-cinzel text-xs sm:text-sm truncate">
+                    <div className="font-bold text-amber-200 font-cinzel text-xs truncate">
                       {currentSlide.title}
                     </div>
-                    <div className="text-[10px] sm:text-[11px] text-slate-300 truncate">
+                    <div className="text-[10px] text-slate-400 truncate">
                       {currentSlide.subtitle}
                     </div>
                   </div>
-                  <div className="text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1 flex-shrink-0 text-xs">
-                    <Maximize2 className="w-3.5 h-3.5" />
+                  <div className="text-amber-400 font-bold flex items-center gap-1 flex-shrink-0 text-[11px]">
+                    <Maximize2 className="w-3 h-3" />
                     <span className="hidden sm:inline">Zoom</span>
                   </div>
                 </div>
               </div>
 
-              {/* Bottom Quick-Slide Navigation Tabs */}
-              <div className="p-2.5 bg-[#030917] border-t border-amber-500/20 flex items-center justify-between gap-1.5 sm:gap-2">
-                <div className="flex items-center gap-1.5 flex-1 overflow-x-auto">
+              {/* Bottom Carousel Selector Bar */}
+              <div className="px-3 py-2 bg-[#030917] border-t border-amber-500/20 flex items-center justify-between gap-2">
+                <div className="flex items-center gap-1.5 flex-1">
                   {heroSlides.map((slide, idx) => (
                     <button
                       key={slide.id}
@@ -367,10 +298,10 @@ export default function Hero({ onNavigate, onOpenPocketSchedule }) {
                         playChime();
                         setActiveSlideIndex(idx);
                       }}
-                      className={`flex-1 py-1.5 px-2 rounded-lg text-[10px] sm:text-xs font-semibold font-cinzel transition-all cursor-pointer truncate ${
+                      className={`flex-1 py-1 px-2 rounded-lg text-[10px] font-semibold font-cinzel transition-all cursor-pointer truncate ${
                         activeSlideIndex === idx
-                          ? "bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-black shadow-md shadow-amber-500/20"
-                          : "bg-slate-900/90 text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800"
+                          ? "bg-amber-500 text-slate-950 font-black shadow-sm"
+                          : "bg-slate-900 text-slate-400 hover:text-slate-200"
                       }`}
                     >
                       {slide.tag}
@@ -378,152 +309,110 @@ export default function Hero({ onNavigate, onOpenPocketSchedule }) {
                   ))}
                 </div>
 
-                {/* Indicator Dots with Animated Progress */}
-                <div className="flex items-center gap-1.5 px-2">
+                {/* Progress bar dots */}
+                <div className="flex items-center gap-1">
                   {heroSlides.map((_, idx) => (
                     <button
                       key={idx}
                       onClick={() => setActiveSlideIndex(idx)}
-                      className={`relative h-2 rounded-full overflow-hidden transition-all duration-300 cursor-pointer ${
-                        activeSlideIndex === idx
-                          ? "w-10 bg-slate-700"
-                          : "w-2 bg-slate-700 hover:bg-slate-500"
+                      className={`h-1.5 rounded-full transition-all cursor-pointer ${
+                        activeSlideIndex === idx ? "w-6 bg-amber-400" : "w-1.5 bg-slate-700"
                       }`}
-                      aria-label={`Go to slide ${idx + 1}`}
-                    >
-                      {activeSlideIndex === idx && (
-                        <div 
-                          className={`absolute top-0 left-0 h-full bg-amber-400 ${isPaused ? "w-full transition-all" : ""}`}
-                          style={!isPaused ? {
-                            animation: "slideshowProgress 5s linear forwards"
-                          } : {}}
-                        />
-                      )}
-                    </button>
+                      aria-label={`Slide ${idx + 1}`}
+                    />
                   ))}
-                  <style>{`
-                    @keyframes slideshowProgress {
-                      0% { width: 0%; }
-                      100% { width: 100%; }
-                    }
-                  `}</style>
                 </div>
               </div>
 
             </div>
           </div>
 
-          {/* Right Column: Live Countdown & Conclave Status */}
-          <div className="lg:col-span-5 space-y-4">
-            <div className="p-6 rounded-2xl bg-[#081533]/90 border border-amber-500/30 shadow-xl backdrop-blur-xl space-y-4">
+          {/* Right Column: Countdown Card & CMS Tribute */}
+          <div className="lg:col-span-5 space-y-3.5">
+            
+            {/* Live Conclave Countdown */}
+            <div className="p-5 rounded-2xl bg-[#081533]/85 border border-amber-500/30 shadow-xl backdrop-blur-xl space-y-3.5">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2 text-xs font-bold text-amber-300 uppercase tracking-wider font-cinzel">
-                  <Clock className="w-4 h-4 text-amber-400" />
-                  <span>Conclave Commences In</span>
+                <div className="flex items-center gap-1.5 text-xs font-bold text-amber-300 uppercase tracking-wider font-cinzel">
+                  <Clock className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Commences In</span>
                 </div>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono">
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 font-mono">
                   IST {currentIST || "Live"}
                 </span>
               </div>
 
-              <div className="grid grid-cols-4 gap-2.5 text-center">
-                <div className="bg-[#030917]/90 border border-amber-500/20 rounded-xl p-3 shadow-inner">
-                  <div className="text-2xl sm:text-3xl font-black text-gold-gradient font-mono">
+              {/* 4-digit countdown counter */}
+              <div className="grid grid-cols-4 gap-2 text-center">
+                <div className="bg-[#030917]/90 border border-amber-500/20 rounded-xl p-2.5 shadow-inner">
+                  <div className="text-xl sm:text-2xl font-black text-gold-gradient font-mono">
                     {String(timeLeft.days).padStart(2, "0")}
                   </div>
-                  <div className="text-[10px] text-slate-400 uppercase font-semibold mt-1">Days</div>
+                  <div className="text-[9px] text-slate-400 uppercase font-semibold mt-0.5">Days</div>
                 </div>
 
-                <div className="bg-[#030917]/90 border border-amber-500/20 rounded-xl p-3 shadow-inner">
-                  <div className="text-2xl sm:text-3xl font-black text-gold-gradient font-mono">
+                <div className="bg-[#030917]/90 border border-amber-500/20 rounded-xl p-2.5 shadow-inner">
+                  <div className="text-xl sm:text-2xl font-black text-gold-gradient font-mono">
                     {String(timeLeft.hours).padStart(2, "0")}
                   </div>
-                  <div className="text-[10px] text-slate-400 uppercase font-semibold mt-1">Hours</div>
+                  <div className="text-[9px] text-slate-400 uppercase font-semibold mt-0.5">Hours</div>
                 </div>
 
-                <div className="bg-[#030917]/90 border border-amber-500/20 rounded-xl p-3 shadow-inner">
-                  <div className="text-2xl sm:text-3xl font-black text-gold-gradient font-mono">
+                <div className="bg-[#030917]/90 border border-amber-500/20 rounded-xl p-2.5 shadow-inner">
+                  <div className="text-xl sm:text-2xl font-black text-gold-gradient font-mono">
                     {String(timeLeft.minutes).padStart(2, "0")}
                   </div>
-                  <div className="text-[10px] text-slate-400 uppercase font-semibold mt-1">Mins</div>
+                  <div className="text-[9px] text-slate-400 uppercase font-semibold mt-0.5">Mins</div>
                 </div>
 
-                <div className="bg-[#030917]/90 border border-amber-500/20 rounded-xl p-3 shadow-inner">
-                  <div className="text-2xl sm:text-3xl font-black text-gold-gradient font-mono">
+                <div className="bg-[#030917]/90 border border-amber-500/20 rounded-xl p-2.5 shadow-inner">
+                  <div className="text-xl sm:text-2xl font-black text-gold-gradient font-mono">
                     {String(timeLeft.seconds).padStart(2, "0")}
                   </div>
-                  <div className="text-[10px] text-slate-400 uppercase font-semibold mt-1">Secs</div>
+                  <div className="text-[9px] text-slate-400 uppercase font-semibold mt-0.5">Secs</div>
                 </div>
               </div>
 
-              {/* Direct Add to Google Calendar Button */}
+              {/* Google Calendar Sync Button */}
               <button
                 onClick={() => openGoogleCalendar(null)}
-                className="w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-500/20 to-amber-600/20 hover:from-amber-500/30 hover:to-amber-600/30 border border-amber-500/40 text-amber-300 hover:text-white font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm group"
+                className="w-full py-2 px-3 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/35 text-amber-300 hover:text-white font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm group active:scale-98"
               >
-                <Calendar className="w-4 h-4 text-amber-400 group-hover:scale-110 transition-transform" />
-                <span>Add Conclave to Google Calendar</span>
-                <ExternalLink className="w-3 h-3 text-amber-400/80" />
+                <Calendar className="w-3.5 h-3.5 text-amber-400 group-hover:scale-110 transition-transform" />
+                <span>Add to Google Calendar</span>
+                <ExternalLink className="w-3 h-3 text-amber-400/70" />
               </button>
             </div>
 
-            {/* Quick Conclave Highlight Card */}
-            <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-500/10 via-amber-400/10 to-amber-600/10 border border-amber-500/30 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 flex-shrink-0">
-                <Heart className="w-5 h-5 text-amber-300" />
+            {/* Leadership Tribute Highlight Card */}
+            <div className="p-3.5 rounded-2xl bg-gradient-to-r from-amber-500/10 via-amber-400/10 to-amber-600/10 border border-amber-500/30 flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 flex-shrink-0">
+                <Heart className="w-4 h-4 text-amber-300" />
               </div>
-              <div>
-                <div className="text-xs font-bold text-amber-200 font-cinzel">34 Years of Exemplary Service</div>
-                <div className="text-[11px] text-slate-300">Heartfelt tribute celebrating Dr. Vijayalakshmi R. Natarajan (CMS/TPJ)</div>
+              <div className="min-w-0">
+                <div className="text-xs font-bold text-amber-200 font-cinzel truncate">
+                  34 Years of Exemplary Service
+                </div>
+                <div className="text-[10px] text-slate-300 line-clamp-1">
+                  Heartfelt tribute celebrating Dr. Vijayalakshmi R. Natarajan (CMS/TPJ)
+                </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        {/* Visual Page Directory Hub */}
-        <div className="mt-8">
-          <div className="text-center max-w-2xl mx-auto mb-6">
-            <span className="text-xs uppercase font-bold tracking-widest text-amber-400 font-cinzel">
-              Conclave Portal Directory
-            </span>
-            <h3 className="text-xl sm:text-2xl font-bold font-cinzel text-white mt-1">
-              Select a Dedicated Section to Explore
-            </h3>
-          </div>
+            {/* Quick Conclave Invitation Teaser */}
+            <div className="p-3 rounded-2xl bg-[#040e24]/70 border border-slate-800 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                <span className="text-[11px] text-slate-300 font-cinzel">Official Conclave Notice</span>
+              </div>
+              <button
+                onClick={() => onNavigate("invitation")}
+                className="text-[11px] text-amber-400 hover:text-amber-300 font-bold font-cinzel cursor-pointer"
+              >
+                View Invitation →
+              </button>
+            </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {pageCards.map((card) => {
-              const Icon = card.icon;
-              return (
-                <button
-                  key={card.id}
-                  onClick={() => {
-                    playChime();
-                    onNavigate(card.id);
-                  }}
-                  className={`p-5 rounded-2xl bg-gradient-to-br ${card.color} border ${card.borderColor} shadow-lg text-left hover:scale-[1.02] hover:border-amber-400 transition-all duration-300 cursor-pointer flex flex-col justify-between group`}
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#030917] text-amber-300 border border-amber-500/30 font-cinzel">
-                        {card.badge}
-                      </span>
-                      <Icon className="w-5 h-5 text-amber-400 group-hover:translate-x-0.5 transition-transform" />
-                    </div>
-                    <h4 className="text-base font-bold font-cinzel text-white group-hover:text-amber-300 transition-colors mb-1">
-                      {card.title}
-                    </h4>
-                    <p className="text-xs text-slate-300 leading-relaxed font-normal">
-                      {card.desc}
-                    </p>
-                  </div>
-                  <div className="mt-4 pt-2.5 border-t border-slate-700/50 flex items-center justify-between text-xs font-bold text-amber-400 font-cinzel">
-                    <span>Open Section</span>
-                    <span>→</span>
-                  </div>
-                </button>
-              );
-            })}
           </div>
         </div>
 

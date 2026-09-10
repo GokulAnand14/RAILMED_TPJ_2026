@@ -57,16 +57,22 @@ export const downloadTimetablePDF = async (selectedDay = "all") => {
         if (s.speaker && s.speaker.name) {
           faculty = `${s.speaker.name}${s.speaker.designation ? ` (${s.speaker.designation})` : ""}`;
         } else if (s.moderator && s.moderator.name) {
-          faculty = `Mod: ${s.moderator.name}`;
+          faculty = `Mod: ${s.moderator.name}${s.moderator.designation ? ` (${s.moderator.designation})` : ""}`;
         } else if (s.sponsor) {
           faculty = `Sponsored by ${s.sponsor}`;
+        }
+
+        let chair = "—";
+        if (s.chairpersons && s.chairpersons.length > 0) {
+          chair = s.chairpersons.map((c) => `${c.name}${c.designation ? ` (${c.designation})` : ""}`).join("\n");
         }
 
         return [
           s.slNo || "—",
           s.timeDisplay || `${s.startTime} - ${s.endTime}`,
           s.topic || "—",
-          faculty
+          faculty,
+          chair
         ];
       });
     };
@@ -84,26 +90,27 @@ export const downloadTimetablePDF = async (selectedDay = "all") => {
 
       autoTable(doc, {
         startY: currentY + 5,
-        head: [["#", "Time", "Session / Topic", "Faculty / Speaker"]],
+        head: [["#", "Time", "Session / Topic", "Faculty / Speaker", "Chairperson(s)"]],
         body: day1Rows,
         theme: "grid",
         headStyles: {
           fillColor: primaryNavy,
           textColor: [255, 215, 0],
-          fontSize: 8,
+          fontSize: 7.5,
           fontStyle: "bold",
           halign: "left"
         },
         bodyStyles: {
-          fontSize: 7.5,
+          fontSize: 7,
           textColor: [30, 30, 30],
-          cellPadding: 2
+          cellPadding: 1.8
         },
         columnStyles: {
           0: { cellWidth: 8, halign: "center" },
-          1: { cellWidth: 28, fontStyle: "bold", textColor: [150, 90, 0] },
-          2: { cellWidth: 82 },
-          3: { cellWidth: 64 }
+          1: { cellWidth: 26, fontStyle: "bold", textColor: [150, 90, 0] },
+          2: { cellWidth: 56 },
+          3: { cellWidth: 46 },
+          4: { cellWidth: 46 }
         },
         alternateRowStyles: {
           fillColor: lightBg
@@ -132,26 +139,27 @@ export const downloadTimetablePDF = async (selectedDay = "all") => {
 
       autoTable(doc, {
         startY: currentY + 5,
-        head: [["#", "Time", "Session / Topic", "Faculty / Speaker"]],
+        head: [["#", "Time", "Session / Topic", "Faculty / Speaker", "Chairperson(s)"]],
         body: day2Rows,
         theme: "grid",
         headStyles: {
           fillColor: primaryNavy,
           textColor: [255, 215, 0],
-          fontSize: 8,
+          fontSize: 7.5,
           fontStyle: "bold",
           halign: "left"
         },
         bodyStyles: {
-          fontSize: 7.5,
+          fontSize: 7,
           textColor: [30, 30, 30],
-          cellPadding: 2
+          cellPadding: 1.8
         },
         columnStyles: {
           0: { cellWidth: 8, halign: "center" },
-          1: { cellWidth: 28, fontStyle: "bold", textColor: [150, 90, 0] },
-          2: { cellWidth: 82 },
-          3: { cellWidth: 64 }
+          1: { cellWidth: 26, fontStyle: "bold", textColor: [150, 90, 0] },
+          2: { cellWidth: 56 },
+          3: { cellWidth: 46 },
+          4: { cellWidth: 46 }
         },
         alternateRowStyles: {
           fillColor: lightBg

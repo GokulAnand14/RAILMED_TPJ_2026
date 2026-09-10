@@ -57,6 +57,11 @@ export default function IndustrySymposia() {
                       Faculty: {sponsor.speaker}
                     </div>
                   )}
+                  {sponsor.chairpersons && (
+                    <div className="text-[11px] text-slate-300 font-medium mt-0.5">
+                      Chair: {sponsor.chairpersons}
+                    </div>
+                  )}
                 </div>
 
                 {/* Timing */}

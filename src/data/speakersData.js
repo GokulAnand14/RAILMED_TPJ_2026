@@ -25,7 +25,7 @@ export const facultyMembers = [
       "Dr Rahulan Oration: Role of Family Physician in Metabolic diseases",
       "Novo Nordisk Symposium: Innovator Oral Semaglutide"
     ],
-    sessionDay: "Day 2 (09:00 to 09:30 & 14:00 to 14:30 hrs)",
+    sessionDay: "Day 1 (15:30 to 16:00 hrs) & Day 2 (09:00 to 09:30 hrs)",
     avatarText: "PN",
     badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/40"
   },
@@ -38,7 +38,7 @@ export const facultyMembers = [
     category: "Academic / Guest Faculty",
     specialty: "Medical Oncology",
     topics: ["Immunotherapy in Malignancy", "Panel discussions on Cancer management"],
-    sessionDay: "Day 1 (10:15 to 11:00 & 11:30 to 12:15 hrs)",
+    sessionDay: "Day 1 (10:45 to 11:15 & 11:45 to 12:30 hrs)",
     avatarText: "PG",
     badgeColor: "bg-rose-500/20 text-rose-300 border-rose-500/40"
   },
@@ -51,7 +51,7 @@ export const facultyMembers = [
     category: "Academic / Guest Faculty",
     specialty: "Preventive & Social Medicine (PSM)",
     topics: ["Is cancer prevention a reality"],
-    sessionDay: "Day 1 (11:00 to 11:30 hrs)",
+    sessionDay: "Day 1 (11:15 to 11:45 hrs)",
     avatarText: "MT",
     badgeColor: "bg-rose-500/20 text-rose-300 border-rose-500/40"
   },
@@ -64,7 +64,7 @@ export const facultyMembers = [
     category: "Academic / Guest Faculty",
     specialty: "Otorhinolaryngology (ENT) / Sleep Surgery",
     topics: ["Role of surgery in OSA"],
-    sessionDay: "Day 1 (12:15 to 12:45 hrs)",
+    sessionDay: "Day 1 (12:30 to 13:00 hrs)",
     avatarText: "SG",
     badgeColor: "bg-teal-500/20 text-teal-300 border-teal-500/40"
   },
@@ -136,28 +136,57 @@ export const facultyMembers = [
   {
     id: "f-shanmugavelu",
     name: "Dr M. Shanmugavelu",
-    role: "Keynote Speaker",
+    role: "Keynote Speaker & Industry Faculty",
     designation: "Chairman & Managing Director",
     institution: "Trichy Diabetes Speciality Hospital, Trichy",
     category: "Specialist Consultant",
     specialty: "Advanced Diabetology & Clinical Research",
-    topics: ["Future frontiers in Diabetes management"],
-    sessionDay: "Day 2 (11:45 to 12:15 hrs)",
+    topics: [
+      "Future frontiers in Diabetes management",
+      "SANOFI Symposium: iGlarlixi as a first injectable in clinical practice"
+    ],
+    sessionDay: "Day 2 (11:45 to 12:15 & 12:45 to 13:15 hrs)",
     avatarText: "MS",
     badgeColor: "bg-orange-500/20 text-orange-300 border-orange-500/40"
   },
   {
-    id: "f-lakshmanan",
-    name: "Dr Lakshmanan",
+    id: "f-lekshmana-bharathi",
+    name: "Dr Lekshmana Bharathi G K",
     role: "Symposium Speaker",
     designation: "Regional Medical Advisor",
-    institution: "CIPLA Pharmaceuticals",
+    institution: "CIPLA",
     category: "Industry Faculty",
     specialty: "Pulmonary & Diabetes Therapeutics",
-    topics: ["CIPLA Symposium: Inhaled Insulin- a new breath in Diabetes Care"],
-    sessionDay: "Day 2 (12:15 to 12:45 hrs)",
-    avatarText: "LK",
+    topics: ["CIPLA: Inhale the change: A paradigm Shift in Prandial Insulin Delivery"],
+    sessionDay: "Day 1 (08:30 to 09:00 hrs)",
+    avatarText: "LB",
     badgeColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40"
+  },
+  {
+    id: "f-jeba-singh",
+    name: "Dr Jeba Singh",
+    role: "Symposium Speaker",
+    designation: "Medical Specialist",
+    institution: "Novartis Healthcare",
+    category: "Industry Faculty",
+    specialty: "Oncology & Breast Cancer Therapeutics",
+    topics: ["NOVARTIS: Breast Cancer Impacting Outcomes with Increased Awareness"],
+    sessionDay: "Day 1 (14:00 to 14:30 hrs)",
+    avatarText: "JS",
+    badgeColor: "bg-blue-500/20 text-blue-300 border-blue-500/40"
+  },
+  {
+    id: "f-anand-kumar",
+    name: "Dr Anand Kumar Annamalai",
+    role: "Symposium Speaker",
+    designation: "Endocrinologist",
+    institution: "Madurai",
+    category: "Specialist Consultant",
+    specialty: "Endocrinology & Incretin Therapeutics",
+    topics: ["LILLY: Initiating Mounjaro – What every clinician needs to know"],
+    sessionDay: "Day 2 (14:00 to 14:30 hrs)",
+    avatarText: "AA",
+    badgeColor: "bg-rose-500/20 text-rose-300 border-rose-500/40"
   },
   {
     id: "f-ninu-babu",
@@ -168,7 +197,7 @@ export const facultyMembers = [
     category: "Railway Faculty",
     specialty: "Pulmonology & Sleep Medicine",
     topics: ["Role of CPAP in OSA"],
-    sessionDay: "Day 2 (14:30 to 15:00 hrs)",
+    sessionDay: "Day 2 (12:15 to 12:45 hrs)",
     avatarText: "NB",
     badgeColor: "bg-teal-500/20 text-teal-300 border-teal-500/40"
   },
@@ -183,7 +212,7 @@ export const facultyMembers = [
     category: "Railway Faculty",
     specialty: "General Medicine / Administration",
     topics: ["Moderator: Panel discussions on Cancer management"],
-    sessionDay: "Day 1 (11:30 to 12:15 hrs)",
+    sessionDay: "Day 1 (11:45 to 12:30 hrs)",
     avatarText: "CS",
     badgeColor: "bg-purple-500/20 text-purple-300 border-purple-500/40"
   },
@@ -196,7 +225,7 @@ export const facultyMembers = [
     category: "Railway Faculty",
     specialty: "Internal Medicine / Diabetology",
     topics: ["Moderator: Panel discussion on \"Diabetes and early detection of complications\""],
-    sessionDay: "Day 2 (15:00 to 15:45 hrs)",
+    sessionDay: "Day 2 (14:30 to 15:45 hrs)",
     avatarText: "AK",
     badgeColor: "bg-purple-500/20 text-purple-300 border-purple-500/40"
   },
@@ -209,7 +238,7 @@ export const facultyMembers = [
     category: "Railway Faculty",
     specialty: "Clinical Leadership & Administration",
     topics: ["Panel discussions on Cancer management"],
-    sessionDay: "Day 1 (11:30 to 12:15 hrs)",
+    sessionDay: "Day 1 (11:45 to 12:30 hrs)",
     avatarText: "VA",
     badgeColor: "bg-purple-500/20 text-purple-300 border-purple-500/40"
   },
@@ -222,20 +251,20 @@ export const facultyMembers = [
     category: "Railway Faculty",
     specialty: "Surgery",
     topics: ["Panel discussions on Cancer management", "Panel discussion on Diabetes complications"],
-    sessionDay: "Day 1 & Day 2 Panels",
+    sessionDay: "Day 1 (11:45 to 12:30 hrs) & Day 2 (14:30 to 15:45 hrs)",
     avatarText: "VB",
     badgeColor: "bg-purple-500/20 text-purple-300 border-purple-500/40"
   },
   {
     id: "f-veeramani",
     name: "Dr A. Veeramani",
-    role: "Panelist",
+    role: "Panelist & Session Chairperson",
     designation: "ACMS / A / GOC",
     institution: "Railway Hospital, Golden Rock (GOC)",
     category: "Railway Faculty",
     specialty: "Anesthesiology & Critical Care",
-    topics: ["Panel discussions on Cancer management"],
-    sessionDay: "Day 1 (11:30 to 12:15 hrs)",
+    topics: ["Panelist: Cancer management", "Chair: Lilly Mounjaro Symposium"],
+    sessionDay: "Day 1 (11:45 to 12:30 hrs) & Day 2 (14:00 to 14:30 hrs)",
     avatarText: "AV",
     badgeColor: "bg-purple-500/20 text-purple-300 border-purple-500/40"
   },
@@ -248,7 +277,7 @@ export const facultyMembers = [
     category: "Railway Faculty",
     specialty: "Radiation Therapy / Oncology",
     topics: ["Panel discussions on Cancer management"],
-    sessionDay: "Day 1 (11:30 to 12:15 hrs)",
+    sessionDay: "Day 1 (11:45 to 12:30 hrs)",
     avatarText: "MD",
     badgeColor: "bg-purple-500/20 text-purple-300 border-purple-500/40"
   },
@@ -261,20 +290,20 @@ export const facultyMembers = [
     category: "Railway Faculty",
     specialty: "Internal Medicine",
     topics: ["Panel discussion on Diabetes and early detection of complications"],
-    sessionDay: "Day 2 (15:00 to 15:45 hrs)",
+    sessionDay: "Day 2 (14:30 to 15:45 hrs)",
     avatarText: "PM",
     badgeColor: "bg-purple-500/20 text-purple-300 border-purple-500/40"
   },
   {
     id: "f-saravanan",
-    name: "Dr R Saravanan",
+    name: "Dr R. Saravanan",
     role: "Panelist",
     designation: "ACHD / Eye / PER",
     institution: "Railway Hospital, Perambur (PER)",
     category: "Railway Faculty",
     specialty: "Ophthalmology / Diabetic Retinopathy",
     topics: ["Panel discussion on Diabetes and early detection of complications"],
-    sessionDay: "Day 2 (15:00 to 15:45 hrs)",
+    sessionDay: "Day 2 (14:30 to 15:45 hrs)",
     avatarText: "RS",
     badgeColor: "bg-purple-500/20 text-purple-300 border-purple-500/40"
   },
@@ -283,28 +312,45 @@ export const facultyMembers = [
   {
     id: "f-kalyani",
     name: "Dr Kalyani S",
-    role: "Chief Guest, Orator & Session Chairperson",
+    role: "Chief Guest, Keynote Speaker & Session Chairperson",
     designation: "Principal Chief Medical Director (PCMD SR)",
     institution: "Southern Railway Headquarters",
     category: "Railway Leadership",
-    specialty: "Chief Medical Administration & OG",
-    topics: ["Chair: Dr Sai Dhandapani Oration", "Speaker: Interesting case in OG", "Inaugural Address"],
-    sessionDay: "Day 1 (09:00 to 09:30 & 15:30 to 16:00 hrs)",
+    specialty: "Chief Medical Administration & Cardiology/OG",
+    topics: [
+      "Chief Guest: Inauguration Ceremony",
+      "Speaker: Defying the Odds: Cardiac Sarcoidosis & ICD in Pregnancy",
+      "Chair: Dr Sai Dhandapani Oration"
+    ],
+    sessionDay: "Day 1 (09:00 to 10:45 hrs)",
     avatarText: "SK",
     badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/40"
   },
   {
-    id: "f-perumal",
-    name: "Dr U.K. Perumal",
-    role: "Session Chairperson & Patron",
-    designation: "PCMD PER (Retd PCMD)",
-    institution: "Southern Railway Headquarters",
+    id: "f-nm-kumar",
+    name: "DR N M Kumar",
+    role: "Session Chairperson",
+    designation: "MD RH PER",
+    institution: "Railway Hospital, Perambur (PER)",
     category: "Railway Leadership",
-    specialty: "Chief Medical Administration",
-    topics: ["Chair: Dr Rahulan Oration"],
-    sessionDay: "Day 2 (14:00 to 14:30 hrs)",
-    avatarText: "UP",
-    badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/40"
+    specialty: "Hospital Administration & Internal Medicine",
+    topics: ["Chair: Defying the Odds: Cardiac Sarcoidosis & ICD in Pregnancy"],
+    sessionDay: "Day 1 (10:15 to 10:45 hrs)",
+    avatarText: "NK",
+    badgeColor: "bg-blue-500/20 text-blue-300 border-blue-500/40"
+  },
+  {
+    id: "f-durga",
+    name: "Dr Durga",
+    role: "Session Chairperson",
+    designation: "Sr DMO GOC",
+    institution: "Railway Hospital, Golden Rock (GOC)",
+    category: "Railway Faculty",
+    specialty: "Internal Medicine",
+    topics: ["Chair: CIPLA Symposium on Prandial Insulin Delivery"],
+    sessionDay: "Day 1 (08:30 to 09:00 hrs)",
+    avatarText: "DU",
+    badgeColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40"
   },
   {
     id: "f-velusamy",
@@ -315,7 +361,7 @@ export const facultyMembers = [
     category: "Senior Veteran Faculty",
     specialty: "Medical Administration & Surgery",
     topics: ["Chair: Immunotherapy in Malignancy"],
-    sessionDay: "Day 1 (10:15 to 11:00 hrs)",
+    sessionDay: "Day 1 (10:45 to 11:15 hrs)",
     avatarText: "PV",
     badgeColor: "bg-blue-500/20 text-blue-300 border-blue-500/40"
   },
@@ -328,7 +374,7 @@ export const facultyMembers = [
     category: "Railway Leadership",
     specialty: "Chief Medical Superintendent",
     topics: ["Chair: Immunotherapy in Malignancy"],
-    sessionDay: "Day 1 (10:15 to 11:00 hrs)",
+    sessionDay: "Day 1 (10:45 to 11:15 hrs)",
     avatarText: "MB",
     badgeColor: "bg-blue-500/20 text-blue-300 border-blue-500/40"
   },
@@ -341,7 +387,7 @@ export const facultyMembers = [
     category: "Senior Veteran Faculty",
     specialty: "Chief Medical Administration",
     topics: ["Chair: Role of surgery in OSA"],
-    sessionDay: "Day 1 (12:15 to 12:45 hrs)",
+    sessionDay: "Day 1 (12:30 to 13:00 hrs)",
     avatarText: "RS",
     badgeColor: "bg-teal-500/20 text-teal-300 border-teal-500/40"
   },
@@ -354,13 +400,39 @@ export const facultyMembers = [
     category: "Railway Leadership",
     specialty: "Chief Medical Superintendent",
     topics: ["Chair: Role of surgery in OSA"],
-    sessionDay: "Day 1 (12:15 to 12:45 hrs)",
+    sessionDay: "Day 1 (12:30 to 13:00 hrs)",
     avatarText: "TA",
     badgeColor: "bg-teal-500/20 text-teal-300 border-teal-500/40"
   },
   {
+    id: "f-jagadeeswari",
+    name: "Dr Jagadeeswari",
+    role: "Session Chairperson",
+    designation: "ACMS GOC",
+    institution: "Railway Hospital, Golden Rock (GOC)",
+    category: "Railway Leadership",
+    specialty: "Clinical Services & Administration",
+    topics: ["Chair: Novartis Breast Cancer Symposium"],
+    sessionDay: "Day 1 (14:00 to 14:30 hrs)",
+    avatarText: "JA",
+    badgeColor: "bg-blue-500/20 text-blue-300 border-blue-500/40"
+  },
+  {
+    id: "f-sunil-joshua",
+    name: "Dr Sunil Joshua",
+    role: "Session Chairperson",
+    designation: "Sr DMO GOC",
+    institution: "Railway Hospital, Golden Rock (GOC)",
+    category: "Railway Faculty",
+    specialty: "General Medicine",
+    topics: ["Chair: Novartis Breast Cancer Symposium"],
+    sessionDay: "Day 1 (14:00 to 14:30 hrs)",
+    avatarText: "SJ",
+    badgeColor: "bg-blue-500/20 text-blue-300 border-blue-500/40"
+  },
+  {
     id: "f-adikesavan",
-    name: "Dr Adikesavan.N",
+    name: "Dr. Adikesavan.N",
     role: "Session Chairperson",
     designation: "CMS / PGT",
     institution: "Southern Railway, Palakkad Division",
@@ -383,6 +455,45 @@ export const facultyMembers = [
     sessionDay: "Day 1 (14:30 to 15:00 hrs)",
     avatarText: "CS",
     badgeColor: "bg-blue-500/20 text-blue-300 border-blue-500/40"
+  },
+  {
+    id: "f-perumal",
+    name: "Dr U.K. Perumal",
+    role: "Session Chairperson & Patron",
+    designation: "PCMD PER",
+    institution: "Southern Railway Headquarters",
+    category: "Railway Leadership",
+    specialty: "Chief Medical Administration",
+    topics: ["Chair: Dr Rahulan Oration"],
+    sessionDay: "Day 1 (15:30 to 16:00 hrs)",
+    avatarText: "UP",
+    badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/40"
+  },
+  {
+    id: "f-vijayalakshmi",
+    name: "Dr Vijayalakshmi R Natarajan",
+    role: "Organising Chairman & Session Chairperson",
+    designation: "CMS / TPJ",
+    institution: "Divisional Railway Hospital, Golden Rock (GOC), TPJ",
+    category: "Railway Leadership",
+    specialty: "Chief Medical Superintendent & Organising Head",
+    topics: ["Organising Chairman", "Chair: Dr Rahulan Oration"],
+    sessionDay: "Day 1 (15:30 to 16:00 hrs)",
+    avatarText: "VN",
+    badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/40"
+  },
+  {
+    id: "f-theresal-valarmathy",
+    name: "Dr Theresal Valarmathy",
+    role: "Session Chairperson",
+    designation: "Sr DMO GOC",
+    institution: "Railway Hospital, Golden Rock (GOC)",
+    category: "Railway Faculty",
+    specialty: "Internal Medicine",
+    topics: ["Chair: Novo Nordisk Oral Semaglutide Symposium"],
+    sessionDay: "Day 2 (09:00 to 09:30 hrs)",
+    avatarText: "TV",
+    badgeColor: "bg-sky-500/20 text-sky-300 border-sky-500/40"
   },
   {
     id: "f-shivakumar",
@@ -435,5 +546,31 @@ export const facultyMembers = [
     sessionDay: "Day 2 (11:00 to 11:45 hrs)",
     avatarText: "KM",
     badgeColor: "bg-orange-500/20 text-orange-300 border-orange-500/40"
+  },
+  {
+    id: "f-bhavani",
+    name: "Dr V.K. Bhavani",
+    role: "Session Chairperson",
+    designation: "Sr DMO GOC",
+    institution: "Railway Hospital, Golden Rock (GOC)",
+    category: "Railway Faculty",
+    specialty: "Internal Medicine & Pulmonology Support",
+    topics: ["Chair: Role of CPAP in OSA"],
+    sessionDay: "Day 2 (12:15 to 12:45 hrs)",
+    avatarText: "VB",
+    badgeColor: "bg-teal-500/20 text-teal-300 border-teal-500/40"
+  },
+  {
+    id: "f-ulaganathan",
+    name: "Dr M. Ulaganathan",
+    role: "Session Chairperson",
+    designation: "ACMS / GOC",
+    institution: "Railway Hospital, Golden Rock (GOC)",
+    category: "Railway Faculty",
+    specialty: "Clinical Services & Diabetology",
+    topics: ["Chair: SANOFI iGlarlixi Symposium"],
+    sessionDay: "Day 2 (12:45 to 13:15 hrs)",
+    avatarText: "MU",
+    badgeColor: "bg-purple-500/20 text-purple-300 border-purple-500/40"
   }
 ];

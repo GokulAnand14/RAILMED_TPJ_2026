@@ -1,5 +1,8 @@
 import React, { useState, useEffect, Suspense, lazy } from "react";
 import Navbar from "./components/Navbar";
+import MobileBottomBar from "./components/MobileBottomBar";
+import NavDrawer from "./components/NavDrawer";
+import ScrollToTop from "./components/ScrollToTop";
 import Hero from "./components/Hero";
 import PhotoGallerySlider from "./components/PhotoGallerySlider";
 import QuickStats from "./components/QuickStats";
@@ -18,6 +21,8 @@ const InvitationCard = lazy(() => import("./components/InvitationCard"));
 const PocketScheduleModal = lazy(() => import("./components/PocketScheduleModal"));
 const PocketSchedulePage = lazy(() => import("./components/PocketSchedulePage"));
 const LearningResources = lazy(() => import("./components/LearningResources"));
+const CertificatePage = lazy(() => import("./components/CertificatePage"));
+const CertificateModal = lazy(() => import("./components/CertificateModal"));
 
 // Loading fallback for lazy components
 const LoadingSpinner = () => (
@@ -35,20 +40,25 @@ const resolveRoute = (rawHash) => {
   if (hash === "resources" || hash === "learning" || hash === "learning-resources" || hash === "ppts") {
     return "resources";
   }
-  if (["overview", "schedule", "orations", "faculty", "venue", "invitation", "timetable", "resources"].includes(hash)) {
+  if (hash === "certificate" || hash === "tnmc" || hash === "cme-certificate" || hash === "accreditation") {
+    return "certificate";
+  }
+  if (["overview", "schedule", "orations", "faculty", "venue", "invitation", "timetable", "resources", "certificate"].includes(hash)) {
     return hash;
   }
   return "overview";
 };
 
 export default function App() {
-  // Page Router: "overview", "schedule", "orations", "faculty", "venue", "invitation", "timetable", "resources"
+  // Page Router: "overview", "schedule", "orations", "faculty", "venue", "invitation", "timetable", "resources", "certificate"
   const [currentPage, setCurrentPage] = useState(() => {
     return resolveRoute(window.location.hash);
   });
 
   const [activeDayTab, setActiveDayTab] = useState("all");
   const [isPocketModalOpen, setIsPocketModalOpen] = useState(false);
+  const [isCertificateModalOpen, setIsCertificateModalOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [bookmarkedIds, setBookmarkedIds] = useState(() => {
     try {
       const saved = localStorage.getItem("railmed_saved_sessions");
@@ -78,6 +88,8 @@ export default function App() {
       document.title = "RAILMED TPJ CME 2026 • Scientific Schedule";
     } else if (currentPage === "resources") {
       document.title = "RAILMED TPJ CME 2026 • Learning Resources & PPTs";
+    } else if (currentPage === "certificate") {
+      document.title = "RAILMED TPJ CME 2026 • TNMC Accreditation Certificate";
     } else {
       document.title = "RAILMED TPJ CME 2026 • Southern Railway Medical Conclave";
     }
@@ -132,10 +144,23 @@ export default function App() {
         onOpenPocketSchedule={() => navigateTo("timetable")}
         savedCount={bookmarkedIds.length}
         onSelectSavedTab={handleSelectSavedTab}
+        onToggleMobileMenu={() => setIsDrawerOpen((prev) => !prev)}
+        isMobileMenuOpen={isDrawerOpen}
+      />
+
+      {/* Slide-Up Navigation Drawer for Mobile */}
+      <NavDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        currentPage={currentPage}
+        onNavigate={navigateTo}
+        savedCount={bookmarkedIds.length}
+        onSelectSavedTab={handleSelectSavedTab}
+        onOpenPocketSchedule={() => navigateTo("timetable")}
       />
 
       {/* Main Routed Page Content */}
-      <main className="flex-grow relative z-10">
+      <main id="main-content" className="flex-grow relative z-10 pb-20 lg:pb-0">
         <Suspense fallback={<LoadingSpinner />}>
           {/* PAGE 1: OVERVIEW & LEADERSHIP */}
           {currentPage === "overview" && (
@@ -143,13 +168,16 @@ export default function App() {
               <Hero
                 onNavigate={navigateTo}
                 onOpenPocketSchedule={() => navigateTo("timetable")}
+                onOpenCertificateModal={() => setIsCertificateModalOpen(true)}
               />
               <PhotoGallerySlider />
               <QuickStats />
               <DignitariesShowcase
                 onOpenInvitationModal={() => navigateTo("invitation")}
+                onOpenCertificateModal={() => setIsCertificateModalOpen(true)}
               />
               <PageNavigator
+                currentPage={currentPage}
                 nextPage="schedule"
                 nextLabel="View Scientific Schedule"
                 onNavigate={navigateTo}
@@ -168,6 +196,7 @@ export default function App() {
                 onOpenPocketSchedule={() => navigateTo("timetable")}
               />
               <PageNavigator
+                currentPage={currentPage}
                 prevPage="overview"
                 prevLabel="Overview"
                 nextPage="orations"
@@ -183,6 +212,7 @@ export default function App() {
               <OrationsSpotlight />
               <PanelSpotlight />
               <PageNavigator
+                currentPage={currentPage}
                 prevPage="schedule"
                 prevLabel="Scientific Schedule"
                 nextPage="faculty"
@@ -198,6 +228,7 @@ export default function App() {
               <FacultyDirectory />
               <IndustrySymposia />
               <PageNavigator
+                currentPage={currentPage}
                 prevPage="orations"
                 prevLabel="Orations & Panels"
                 nextPage="venue"
@@ -212,6 +243,7 @@ export default function App() {
             <div className="pt-20 sm:pt-24 animate-in fade-in duration-300">
               <VenueGuide />
               <PageNavigator
+                currentPage={currentPage}
                 prevPage="faculty"
                 prevLabel="Faculty & Symposia"
                 nextPage="invitation"
@@ -236,6 +268,7 @@ export default function App() {
                 <InvitationCard onNavigate={navigateTo} />
               </div>
               <PageNavigator
+                currentPage={currentPage}
                 prevPage="venue"
                 prevLabel="Venue & Travel"
                 nextPage="resources"
@@ -250,6 +283,7 @@ export default function App() {
             <div className="animate-in fade-in duration-300">
               <LearningResources />
               <PageNavigator
+                currentPage={currentPage}
                 prevPage="invitation"
                 prevLabel="Official Invitation"
                 nextPage="timetable"
@@ -264,8 +298,24 @@ export default function App() {
             <div className="animate-in fade-in duration-300">
               <PocketSchedulePage onNavigate={navigateTo} />
               <PageNavigator
+                currentPage={currentPage}
                 prevPage="resources"
                 prevLabel="Learning Resources"
+                nextPage="certificate"
+                nextLabel="TNMC Certificate"
+                onNavigate={navigateTo}
+              />
+            </div>
+          )}
+
+          {/* PAGE 9: TNMC ACCREDITATION CERTIFICATE (#certificate) */}
+          {currentPage === "certificate" && (
+            <div className="animate-in fade-in duration-300">
+              <CertificatePage onNavigate={navigateTo} />
+              <PageNavigator
+                currentPage={currentPage}
+                prevPage="timetable"
+                prevLabel="Pocket Timetable"
                 nextPage="overview"
                 nextLabel="Return to Overview"
                 onNavigate={navigateTo}
@@ -279,13 +329,31 @@ export default function App() {
       <Footer
         onNavigate={navigateTo}
         onOpenPocketSchedule={() => navigateTo("timetable")}
+        onOpenCertificateModal={() => setIsCertificateModalOpen(true)}
       />
+
+      {/* Fixed Mobile Bottom Navigation Dock (< lg screens) */}
+      <MobileBottomBar
+        currentPage={currentPage}
+        onNavigate={navigateTo}
+        onOpenDrawer={() => setIsDrawerOpen(true)}
+        savedCount={bookmarkedIds.length}
+      />
+
+      {/* Floating Scroll to Top Button */}
+      <ScrollToTop />
 
       {/* High-Res Printable Pocket Timetable Modal (Fallback / Direct opener) */}
       <PocketScheduleModal
         isOpen={isPocketModalOpen}
         onClose={() => setIsPocketModalOpen(false)}
         onOpenFullPage={() => navigateTo("timetable")}
+      />
+
+      {/* Official TNMC CME Certificate Modal */}
+      <CertificateModal
+        isOpen={isCertificateModalOpen}
+        onClose={() => setIsCertificateModalOpen(false)}
       />
     </div>
   );

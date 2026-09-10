@@ -1,8 +1,8 @@
 import React from "react";
-import { ShieldCheck, Crown, Star } from "lucide-react";
+import { ShieldCheck, Crown, Star, Download, ExternalLink } from "lucide-react";
 import { dignitariesData } from "../data/dignitariesData";
 
-export default function DignitariesShowcase({ onOpenInvitationModal }) {
+export default function DignitariesShowcase({ onOpenInvitationModal, onOpenCertificateModal }) {
   const { chiefGuest, guestsOfHonour, organisingLeadership, accreditation } = dignitariesData;
 
   return (
@@ -157,7 +157,7 @@ export default function DignitariesShowcase({ onOpenInvitationModal }) {
             <div>
               <div className="flex items-center justify-between">
                 <span className="px-2.5 py-1 rounded-md text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 uppercase font-cinzel">
-                  Accreditation
+                  Accreditation • {accreditation.certificateNo}
                 </span>
                 <ShieldCheck className="w-5 h-5 text-emerald-400" />
               </div>
@@ -168,16 +168,28 @@ export default function DignitariesShowcase({ onOpenInvitationModal }) {
                 {accreditation.council}
               </p>
               <p className="text-[11px] text-slate-300 mt-1.5 leading-relaxed">
-                {accreditation.scope}. Accredited for CME credit certification.
+                Awarded on {accreditation.awardedDate} by {accreditation.registrar}. {accreditation.speakerBonus}.
               </p>
             </div>
-            <button
-              onClick={onOpenInvitationModal}
-              className="mt-4 pt-3 border-t border-emerald-900/60 text-[11px] text-emerald-400 hover:text-emerald-300 font-bold flex items-center justify-between cursor-pointer"
-            >
-              <span>View Accreditation in Invitation</span>
-              <span>→</span>
-            </button>
+
+            <div className="mt-4 pt-3 border-t border-emerald-900/60 space-y-2">
+              <a
+                href={accreditation.pdfUrl}
+                download="TNMC_CME_Certificate_RAILMED_TPJ_2026.pdf"
+                className="w-full py-2 px-3 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer font-cinzel shadow-sm"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span>Download Certificate (PDF)</span>
+              </a>
+
+              <button
+                onClick={onOpenCertificateModal}
+                className="w-full text-[11px] text-emerald-300 hover:text-white font-bold flex items-center justify-between cursor-pointer px-1 transition-colors"
+              >
+                <span>Inspect Certificate & Verify</span>
+                <span>→</span>
+              </button>
+            </div>
           </div>
         </div>
 

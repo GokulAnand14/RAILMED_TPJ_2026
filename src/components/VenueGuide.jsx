@@ -8,7 +8,7 @@ export default function VenueGuide() {
   const [copiedAddress, setCopiedAddress] = useState(false);
 
   const handleCopyAddress = () => {
-    navigator.clipboard.writeText("Cauvery Meeting Hall, DRM Office Campus, Divisional Railway Hospital, Golden Rock, Tiruchchirappalli - 620004");
+    navigator.clipboard.writeText(venueData.address);
     setCopiedAddress(true);
     playChime();
     setTimeout(() => setCopiedAddress(false), 2500);
@@ -62,13 +62,13 @@ export default function VenueGuide() {
 
             <div className="flex flex-col sm:flex-row lg:flex-col gap-2.5 flex-shrink-0">
               <a
-                href="https://maps.google.com/?q=Divisional+Railway+Hospital+Golden+Rock+Tiruchirappalli"
+                href={venueData.mapUrl || "https://maps.google.com/?q=Cauvery+Meeting+Hall+DRM+Office+Campus+Tiruchirappalli"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-5 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs transition-all shadow-md shadow-amber-500/20 flex items-center justify-center gap-2"
               >
                 <Navigation className="w-4 h-4" />
-                <span>Open in Google Maps</span>
+                <span>Open Venue in Google Maps</span>
                 <ExternalLink className="w-3.5 h-3.5" />
               </a>
 
@@ -81,13 +81,14 @@ export default function VenueGuide() {
               </button>
 
               <a
-                href="https://maps.google.com/?q=Cauvery+Meeting+Hall+DRM+Campus+Tiruchirappalli"
+                href="https://maps.google.com/?q=Divisional+Railway+Hospital+Golden+Rock+Tiruchirappalli"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-5 py-3 rounded-xl bg-[#040e24] hover:bg-[#081b47] border border-slate-700 text-slate-300 hover:text-white font-semibold text-xs transition-all flex items-center justify-center gap-2"
+                title="Location of Divisional Railway Hospital, Golden Rock (Host Hospital)"
               >
                 <ExternalLink className="w-4 h-4 text-amber-400" />
-                <span>Open in Google Maps</span>
+                <span>Railway Hospital (GOC) Map</span>
               </a>
             </div>
           </div>

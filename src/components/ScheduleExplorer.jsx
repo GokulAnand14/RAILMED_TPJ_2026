@@ -34,7 +34,14 @@ export default function ScheduleExplorer({
         if (selectedTrack === "oncology" && session.category !== "oncology") return false;
         if (selectedTrack === "diabetes" && session.category !== "diabetes") return false;
         if (selectedTrack === "cardiology" && session.category !== "cardiology") return false;
-        if (selectedTrack === "pulmonology_ent" && session.category !== "ent" && session.category !== "pulmonology") return false;
+        if (
+          selectedTrack === "pulmonology_ent" &&
+          session.category !== "ent" &&
+          session.category !== "pulmonology" &&
+          session.category !== "pulmonology_ent" &&
+          session.track !== "pulmonology_ent"
+        )
+          return false;
       }
 
       if (!searchQuery.trim()) return true;
@@ -71,7 +78,7 @@ export default function ScheduleExplorer({
             Scientific <span className="text-gold-gradient">Schedule</span>
           </h2>
           <p className="text-xs sm:text-sm text-slate-300 mt-2 max-w-2xl mx-auto leading-relaxed">
-            Explore 22 clinical sessions on Non-Communicable Diseases (Cancer, Diabetes, Hypertension, Cardiology & Surgical Care).
+            Explore {allSessions.length} clinical sessions on Non-Communicable Diseases (Cancer, Diabetes, Hypertension, Cardiology & Surgical Care).
           </p>
         </div>
 
@@ -90,7 +97,7 @@ export default function ScheduleExplorer({
               <Layers className="w-3.5 h-3.5" />
               <span>Full Agenda</span>
               <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${activeDayTab === "all" ? "bg-slate-950 text-amber-300" : "bg-slate-800 text-slate-300"}`}>
-                22
+                {allSessions.length}
               </span>
             </button>
 
