@@ -390,9 +390,10 @@ export const facultyMembers = [
     "category": "Senior Veteran Faculty",
     "specialty": "Retired CMS",
     "topics": [
-      "Chair: Immunotherapy in Malignancy"
+      "Chair: Immunotherapy in Malignancy",
+      "Chair: Is cancer prevention a reality"
     ],
-    "sessionDay": "Day 1 (10:45 to 11:15 hrs)",
+    "sessionDay": "Day 1 (10:45 to 11:45 hrs)",
     "avatarText": "PV",
     "badgeColor": "bg-blue-500/20 text-blue-300 border-blue-500/40"
   },
@@ -405,9 +406,10 @@ export const facultyMembers = [
     "category": "Railway Leadership",
     "specialty": "Chief Medical Superintendent",
     "topics": [
-      "Chair: Immunotherapy in Malignancy"
+      "Chair: Immunotherapy in Malignancy",
+      "Chair: Is cancer prevention a reality"
     ],
-    "sessionDay": "Day 1 (10:45 to 11:15 hrs)",
+    "sessionDay": "Day 1 (10:45 to 11:45 hrs)",
     "avatarText": "MB",
     "badgeColor": "bg-blue-500/20 text-blue-300 border-blue-500/40"
   },
@@ -480,9 +482,10 @@ export const facultyMembers = [
     "category": "Railway Leadership",
     "specialty": "Chief Medical Superintendent",
     "topics": [
-      "Chair: Cardiology investigations when and where?"
+      "Chair: Cardiology investigations when and where?",
+      "Chair: Insomnia Demystified"
     ],
-    "sessionDay": "Day 1 (14:30 to 15:00 hrs)",
+    "sessionDay": "Day 1 (14:30 to 15:30 hrs)",
     "avatarText": "AN",
     "badgeColor": "bg-blue-500/20 text-blue-300 border-blue-500/40"
   },
@@ -495,9 +498,10 @@ export const facultyMembers = [
     "category": "Senior Veteran Faculty",
     "specialty": "Retired ACMS",
     "topics": [
-      "Chair: Cardiology investigations when and where?"
+      "Chair: Cardiology investigations when and where?",
+      "Chair: Insomnia Demystified"
     ],
-    "sessionDay": "Day 1 (14:30 to 15:00 hrs)",
+    "sessionDay": "Day 1 (14:30 to 15:30 hrs)",
     "avatarText": "CS",
     "badgeColor": "bg-blue-500/20 text-blue-300 border-blue-500/40"
   },
@@ -570,9 +574,10 @@ export const facultyMembers = [
     "category": "Railway Leadership",
     "specialty": "Chief Medical Superintendent",
     "topics": [
-      "Chair: Elevated Blood Pressure: Evolving Evidence and experiences"
+      "Chair: Elevated Blood Pressure: Evolving Evidence and experiences",
+      "Chair: Metabolic Renaissance from Glucose lowering to longevity enhancement"
     ],
-    "sessionDay": "Day 2 (09:30 to 10:15 hrs)",
+    "sessionDay": "Day 2 (09:30 to 11:00 hrs)",
     "avatarText": "SB",
     "badgeColor": "bg-blue-500/20 text-blue-300 border-blue-500/40"
   },
@@ -585,9 +590,10 @@ export const facultyMembers = [
     "category": "Railway Faculty",
     "specialty": "Railway Medical Service",
     "topics": [
-      "Chair: Elevated Blood Pressure: Evolving Evidence and experiences"
+      "Chair: Elevated Blood Pressure: Evolving Evidence and experiences",
+      "Chair: Metabolic Renaissance from Glucose lowering to longevity enhancement"
     ],
-    "sessionDay": "Day 2 (09:30 to 10:15 hrs)",
+    "sessionDay": "Day 2 (09:30 to 11:00 hrs)",
     "avatarText": "KS",
     "badgeColor": "bg-blue-500/20 text-blue-300 border-blue-500/40"
   },
@@ -600,9 +606,10 @@ export const facultyMembers = [
     "category": "Railway Leadership",
     "specialty": "Principal Chief Medical Officer",
     "topics": [
-      "Chair: Insulin in Diabetes- When, What and How?"
+      "Chair: Insulin in Diabetes- When, What and How?",
+      "Chair: Future frontiers in Diabetes management"
     ],
-    "sessionDay": "Day 2 (11:00 to 11:45 hrs)",
+    "sessionDay": "Day 2 (11:00 to 12:15 hrs)",
     "avatarText": "SB",
     "badgeColor": "bg-blue-500/20 text-blue-300 border-blue-500/40"
   },
@@ -615,9 +622,10 @@ export const facultyMembers = [
     "category": "Railway Faculty",
     "specialty": "Chief Staff Surgeon",
     "topics": [
-      "Chair: Insulin in Diabetes- When, What and How?"
+      "Chair: Insulin in Diabetes- When, What and How?",
+      "Chair: Future frontiers in Diabetes management"
     ],
-    "sessionDay": "Day 2 (11:00 to 11:45 hrs)",
+    "sessionDay": "Day 2 (11:00 to 12:15 hrs)",
     "avatarText": "KM",
     "badgeColor": "bg-blue-500/20 text-blue-300 border-blue-500/40"
   },

@@ -185,7 +185,16 @@ export const day1Schedule = [
       designation: "Professor of PSM, JIPMER",
       avatarText: "MT",
     },
-    chairpersons: [],
+    chairpersons: [
+      {
+        name: "Dr P.Velusamy",
+        designation: "Retd CMS/TPJ",
+      },
+      {
+        name: "Dr M.Baskaran",
+        designation: "CMS/MDU",
+      },
+    ],
     location: "Cauvery Meeting Hall",
     description: "",
     isHighlight: false,
@@ -342,7 +351,16 @@ export const day1Schedule = [
       designation: "ACHD / Psychiatry/PER",
       avatarText: "PA",
     },
-    chairpersons: [],
+    chairpersons: [
+      {
+        name: "Dr. Adikesavan.N",
+        designation: "CMS/PGT",
+      },
+      {
+        name: "Dr C.Sukumaran",
+        designation: "Retd ACMS/TPJ",
+      },
+    ],
     location: "Cauvery Meeting Hall",
     description: "",
     isHighlight: false,
@@ -471,7 +489,16 @@ export const day2Schedule = [
       designation: "Chairman &Managing Director, Prabhu Diabetes Speciality Centre",
       avatarText: "VR",
     },
-    chairpersons: [],
+    chairpersons: [
+      {
+        name: "Dr Shivakumar H Basappa",
+        designation: "CMS/SA",
+      },
+      {
+        name: "Dr K Suresh",
+        designation: "ACHD/PER",
+      },
+    ],
     location: "Cauvery Meeting Hall",
     description: "",
     isHighlight: true,
@@ -522,7 +549,16 @@ export const day2Schedule = [
       designation: "Chairman &Managing Director, Trichy Diabetes Speciality Hospital",
       avatarText: "MS",
     },
-    chairpersons: [],
+    chairpersons: [
+      {
+        name: "Dr Satya Babu",
+        designation: "PCMO/ICF",
+      },
+      {
+        name: "Dr K Muruganandham",
+        designation: "CSS/PER",
+      },
+    ],
     location: "Cauvery Meeting Hall",
     description: "",
     isHighlight: false,
