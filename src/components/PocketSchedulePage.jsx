@@ -189,18 +189,19 @@ export default function PocketSchedulePage({ onNavigate }) {
                     <span>DAY 1: Saturday, 19th September 2026</span>
                   </h3>
                   <span className="text-xs font-bold text-amber-300">
-                    {day1Schedule.filter((s) => s.category !== "general" || s.speaker).length} Sessions
+                    12 Sessions
                   </span>
                 </div>
 
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs border-collapse border border-slate-300">
                     <thead>
-                      <tr className="bg-amber-100/80 text-slate-900 font-bold border-b border-slate-300">
-                        <th className="p-2 border border-slate-300 w-28">Time</th>
-                        <th className="p-2 border border-slate-300">Topic / Session</th>
-                        <th className="p-2 border border-slate-300 w-44">Speaker / Orator</th>
-                        <th className="p-2 border border-slate-300 w-44">Chairperson</th>
+                      <tr className="bg-amber-100/90 text-slate-900 font-bold border-b border-slate-300">
+                        <th className="p-2 border border-slate-300 w-12 text-center">Sl No</th>
+                        <th className="p-2 border border-slate-300 w-28 whitespace-nowrap">Time</th>
+                        <th className="p-2 border border-slate-300 min-w-[200px]">Topic</th>
+                        <th className="p-2 border border-slate-300 w-48">Speaker</th>
+                        <th className="p-2 border border-slate-300 w-56">Chairpersons</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -209,7 +210,7 @@ export default function PocketSchedulePage({ onNavigate }) {
                           key={s.id}
                           className={`border-b border-slate-200 ${
                             s.category === "oration"
-                              ? "bg-amber-50/70 font-semibold"
+                              ? "bg-amber-50/80 font-medium"
                               : s.category === "panel"
                               ? "bg-purple-50/50"
                               : idx % 2 === 0
@@ -217,19 +218,17 @@ export default function PocketSchedulePage({ onNavigate }) {
                               : "bg-slate-50/60"
                           }`}
                         >
+                          <td className="p-2 border border-slate-300 font-mono font-bold text-center text-slate-900 whitespace-nowrap">
+                            {s.slNo || "—"}
+                          </td>
                           <td className="p-2 border border-slate-300 font-mono font-bold text-slate-900 whitespace-nowrap">
                             {s.timeDisplay}
                           </td>
                           <td className="p-2 border border-slate-300">
-                            <div className="font-bold text-slate-900">{s.topic}</div>
+                            <div className="font-bold text-slate-900 leading-snug">{s.topic}</div>
                             {s.category === "oration" && (
-                              <span className="text-[10px] text-amber-800 font-bold uppercase tracking-wider block">
+                              <span className="text-[10px] text-amber-800 font-bold uppercase tracking-wider block mt-0.5">
                                 ★ {s.orationName || "Memorial Oration"}
-                              </span>
-                            )}
-                            {s.category === "panel" && (
-                              <span className="text-[10px] text-purple-800 font-bold uppercase tracking-wider block">
-                                ★ Multidisciplinary Panel Conclave
                               </span>
                             )}
                           </td>
@@ -237,20 +236,47 @@ export default function PocketSchedulePage({ onNavigate }) {
                             {s.speaker ? (
                               <div>
                                 <div className="font-bold text-slate-900">{s.speaker.name}</div>
-                                <div className="text-[10px] text-slate-600">{s.speaker.designation}, {s.speaker.institution}</div>
+                                {s.speaker.designation && (
+                                  <div className="text-[11px] text-slate-600 leading-tight mt-0.5 whitespace-pre-line">
+                                    {s.speaker.designation}
+                                  </div>
+                                )}
                               </div>
                             ) : s.moderator ? (
                               <div>
-                                <div className="font-bold text-purple-900">Mod: {s.moderator.name}</div>
-                                <div className="text-[10px] text-slate-600">{s.moderator.designation}</div>
+                                <div className="text-[10px] font-bold uppercase tracking-wider text-purple-800">Moderator</div>
+                                <div className="font-bold text-purple-950">{s.moderator.name}</div>
+                                {s.moderator.designation && (
+                                  <div className="text-[11px] text-slate-600">{s.moderator.designation}</div>
+                                )}
                               </div>
                             ) : (
                               <span className="text-slate-400">—</span>
                             )}
                           </td>
-                          <td className="p-2 border border-slate-300 text-[11px] text-slate-700">
-                            {s.chairpersons && s.chairpersons.length > 0 ? (
-                              s.chairpersons.map((c) => `${c.name} (${c.designation})`).join("; ")
+                          <td className="p-2 border border-slate-300 text-[11px] text-slate-800">
+                            {s.panelists && s.panelists.length > 0 ? (
+                              <div>
+                                <div className="font-bold text-purple-900 uppercase text-[10px] tracking-wider mb-1">Panelists:</div>
+                                <ol className="space-y-1">
+                                  {s.panelists.map((p, pIdx) => (
+                                    <li key={pIdx} className="leading-tight">
+                                      <span className="font-semibold">{pIdx + 1}. {p.name}</span>
+                                      {p.designation && <span className="text-slate-600">, {p.designation}</span>}
+                                    </li>
+                                  ))}
+                                </ol>
+                              </div>
+                            ) : s.chairpersons && s.chairpersons.length > 0 ? (
+                              <div className="space-y-1">
+                                {s.chairpersons.map((c, cIdx) => (
+                                  <div key={cIdx} className="leading-tight">
+                                    {s.chairpersons.length > 1 && <span className="font-semibold">{cIdx + 1}. </span>}
+                                    <span className="font-semibold">{c.name}</span>
+                                    {c.designation && <span className="text-slate-600">, {c.designation}</span>}
+                                  </div>
+                                ))}
+                              </div>
                             ) : (
                               <span className="text-slate-400">—</span>
                             )}
@@ -272,18 +298,19 @@ export default function PocketSchedulePage({ onNavigate }) {
                     <span>DAY 2: Sunday, 20th September 2026</span>
                   </h3>
                   <span className="text-xs font-bold text-amber-300">
-                    {day2Schedule.filter((s) => s.category !== "general" || s.speaker).length} Sessions
+                    9 Sessions
                   </span>
                 </div>
 
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs border-collapse border border-slate-300">
                     <thead>
-                      <tr className="bg-amber-100/80 text-slate-900 font-bold border-b border-slate-300">
-                        <th className="p-2 border border-slate-300 w-28">Time</th>
-                        <th className="p-2 border border-slate-300">Topic / Session</th>
-                        <th className="p-2 border border-slate-300 w-44">Speaker / Orator</th>
-                        <th className="p-2 border border-slate-300 w-44">Chairperson</th>
+                      <tr className="bg-amber-100/90 text-slate-900 font-bold border-b border-slate-300">
+                        <th className="p-2 border border-slate-300 w-12 text-center">Sl no</th>
+                        <th className="p-2 border border-slate-300 w-28 whitespace-nowrap">Time</th>
+                        <th className="p-2 border border-slate-300 min-w-[200px]">Topic</th>
+                        <th className="p-2 border border-slate-300 w-48">Speaker</th>
+                        <th className="p-2 border border-slate-300 w-56">Chairpersons</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -292,7 +319,7 @@ export default function PocketSchedulePage({ onNavigate }) {
                           key={s.id}
                           className={`border-b border-slate-200 ${
                             s.category === "oration"
-                              ? "bg-amber-50/70 font-semibold"
+                              ? "bg-amber-50/80 font-medium"
                               : s.category === "panel"
                               ? "bg-purple-50/50"
                               : idx % 2 === 0
@@ -300,19 +327,17 @@ export default function PocketSchedulePage({ onNavigate }) {
                               : "bg-slate-50/60"
                           }`}
                         >
+                          <td className="p-2 border border-slate-300 font-mono font-bold text-center text-slate-900 whitespace-nowrap">
+                            {s.slNo || "—"}
+                          </td>
                           <td className="p-2 border border-slate-300 font-mono font-bold text-slate-900 whitespace-nowrap">
                             {s.timeDisplay}
                           </td>
                           <td className="p-2 border border-slate-300">
-                            <div className="font-bold text-slate-900">{s.topic}</div>
+                            <div className="font-bold text-slate-900 leading-snug">{s.topic}</div>
                             {s.category === "oration" && (
-                              <span className="text-[10px] text-amber-800 font-bold uppercase tracking-wider block">
+                              <span className="text-[10px] text-amber-800 font-bold uppercase tracking-wider block mt-0.5">
                                 ★ {s.orationName || "Memorial Oration"}
-                              </span>
-                            )}
-                            {s.category === "panel" && (
-                              <span className="text-[10px] text-purple-800 font-bold uppercase tracking-wider block">
-                                ★ Multidisciplinary Panel Conclave
                               </span>
                             )}
                           </td>
@@ -320,20 +345,47 @@ export default function PocketSchedulePage({ onNavigate }) {
                             {s.speaker ? (
                               <div>
                                 <div className="font-bold text-slate-900">{s.speaker.name}</div>
-                                <div className="text-[10px] text-slate-600">{s.speaker.designation}, {s.speaker.institution}</div>
+                                {s.speaker.designation && (
+                                  <div className="text-[11px] text-slate-600 leading-tight mt-0.5 whitespace-pre-line">
+                                    {s.speaker.designation}
+                                  </div>
+                                )}
                               </div>
                             ) : s.moderator ? (
                               <div>
-                                <div className="font-bold text-purple-900">Mod: {s.moderator.name}</div>
-                                <div className="text-[10px] text-slate-600">{s.moderator.designation}</div>
+                                <div className="text-[10px] font-bold uppercase tracking-wider text-purple-800">Moderator</div>
+                                <div className="font-bold text-purple-950">{s.moderator.name}</div>
+                                {s.moderator.designation && (
+                                  <div className="text-[11px] text-slate-600">{s.moderator.designation}</div>
+                                )}
                               </div>
                             ) : (
                               <span className="text-slate-400">—</span>
                             )}
                           </td>
-                          <td className="p-2 border border-slate-300 text-[11px] text-slate-700">
-                            {s.chairpersons && s.chairpersons.length > 0 ? (
-                              s.chairpersons.map((c) => `${c.name} (${c.designation})`).join("; ")
+                          <td className="p-2 border border-slate-300 text-[11px] text-slate-800">
+                            {s.panelists && s.panelists.length > 0 ? (
+                              <div>
+                                <div className="font-bold text-purple-900 uppercase text-[10px] tracking-wider mb-1">Panelists:</div>
+                                <ol className="space-y-1">
+                                  {s.panelists.map((p, pIdx) => (
+                                    <li key={pIdx} className="leading-tight">
+                                      <span className="font-semibold">{pIdx + 1}. {p.name}</span>
+                                      {p.designation && <span className="text-slate-600">, {p.designation}</span>}
+                                    </li>
+                                  ))}
+                                </ol>
+                              </div>
+                            ) : s.chairpersons && s.chairpersons.length > 0 ? (
+                              <div className="space-y-1">
+                                {s.chairpersons.map((c, cIdx) => (
+                                  <div key={cIdx} className="leading-tight">
+                                    {s.chairpersons.length > 1 && <span className="font-semibold">{cIdx + 1}. </span>}
+                                    <span className="font-semibold">{c.name}</span>
+                                    {c.designation && <span className="text-slate-600">, {c.designation}</span>}
+                                  </div>
+                                ))}
+                              </div>
                             ) : (
                               <span className="text-slate-400">—</span>
                             )}

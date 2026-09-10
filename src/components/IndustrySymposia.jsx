@@ -70,16 +70,22 @@ export default function IndustrySymposia() {
                   <span>{sponsor.schedule}</span>
                 </div>
 
-                {/* Focus & Description */}
-                <div className="space-y-1.5 mb-4 text-xs text-slate-300">
-                  <div>
-                    <span className="font-bold text-amber-200 font-cinzel">Therapeutic Area: </span>
-                    {sponsor.focus}
+                {/* Focus & Description (if available) */}
+                {(sponsor.focus || sponsor.description) && (
+                  <div className="space-y-1.5 mb-4 text-xs text-slate-300">
+                    {sponsor.focus && (
+                      <div>
+                        <span className="font-bold text-amber-200 font-cinzel">Focus: </span>
+                        {sponsor.focus}
+                      </div>
+                    )}
+                    {sponsor.description && (
+                      <p className="text-[11px] text-slate-400 leading-relaxed pt-1">
+                        {sponsor.description}
+                      </p>
+                    )}
                   </div>
-                  <p className="text-[11px] text-slate-400 leading-relaxed pt-1">
-                    {sponsor.description}
-                  </p>
-                </div>
+                )}
               </div>
 
               {/* Card Footer */}

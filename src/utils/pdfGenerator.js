@@ -55,16 +55,18 @@ export const downloadTimetablePDF = async (selectedDay = "all") => {
       return scheduleList.map((s) => {
         let faculty = "—";
         if (s.speaker && s.speaker.name) {
-          faculty = `${s.speaker.name}${s.speaker.designation ? ` (${s.speaker.designation})` : ""}`;
+          faculty = `${s.speaker.name}${s.speaker.designation ? `\n(${s.speaker.designation})` : ""}`;
         } else if (s.moderator && s.moderator.name) {
-          faculty = `Mod: ${s.moderator.name}${s.moderator.designation ? ` (${s.moderator.designation})` : ""}`;
+          faculty = `Mod: ${s.moderator.name}${s.moderator.designation ? `\n(${s.moderator.designation})` : ""}`;
         } else if (s.sponsor) {
           faculty = `Sponsored by ${s.sponsor}`;
         }
 
         let chair = "—";
-        if (s.chairpersons && s.chairpersons.length > 0) {
-          chair = s.chairpersons.map((c) => `${c.name}${c.designation ? ` (${c.designation})` : ""}`).join("\n");
+        if (s.panelists && s.panelists.length > 0) {
+          chair = "Panelists:\n" + s.panelists.map((p, pIdx) => `${pIdx + 1}. ${p.name}${p.designation ? ` (${p.designation})` : ""}`).join("\n");
+        } else if (s.chairpersons && s.chairpersons.length > 0) {
+          chair = s.chairpersons.map((c, cIdx) => `${s.chairpersons.length > 1 ? `${cIdx + 1}. ` : ""}${c.name}${c.designation ? ` (${c.designation})` : ""}`).join("\n");
         }
 
         return [
@@ -90,7 +92,7 @@ export const downloadTimetablePDF = async (selectedDay = "all") => {
 
       autoTable(doc, {
         startY: currentY + 5,
-        head: [["#", "Time", "Session / Topic", "Faculty / Speaker", "Chairperson(s)"]],
+        head: [["Sl No", "Time", "Topic", "Speaker", "Chairpersons"]],
         body: day1Rows,
         theme: "grid",
         headStyles: {
@@ -106,11 +108,11 @@ export const downloadTimetablePDF = async (selectedDay = "all") => {
           cellPadding: 1.8
         },
         columnStyles: {
-          0: { cellWidth: 8, halign: "center" },
+          0: { cellWidth: 12, halign: "center" },
           1: { cellWidth: 26, fontStyle: "bold", textColor: [150, 90, 0] },
-          2: { cellWidth: 56 },
-          3: { cellWidth: 46 },
-          4: { cellWidth: 46 }
+          2: { cellWidth: 54 },
+          3: { cellWidth: 45 },
+          4: { cellWidth: 45 }
         },
         alternateRowStyles: {
           fillColor: lightBg
@@ -139,7 +141,7 @@ export const downloadTimetablePDF = async (selectedDay = "all") => {
 
       autoTable(doc, {
         startY: currentY + 5,
-        head: [["#", "Time", "Session / Topic", "Faculty / Speaker", "Chairperson(s)"]],
+        head: [["Sl No", "Time", "Topic", "Speaker", "Chairpersons"]],
         body: day2Rows,
         theme: "grid",
         headStyles: {
@@ -155,11 +157,11 @@ export const downloadTimetablePDF = async (selectedDay = "all") => {
           cellPadding: 1.8
         },
         columnStyles: {
-          0: { cellWidth: 8, halign: "center" },
+          0: { cellWidth: 12, halign: "center" },
           1: { cellWidth: 26, fontStyle: "bold", textColor: [150, 90, 0] },
-          2: { cellWidth: 56 },
-          3: { cellWidth: 46 },
-          4: { cellWidth: 46 }
+          2: { cellWidth: 54 },
+          3: { cellWidth: 45 },
+          4: { cellWidth: 45 }
         },
         alternateRowStyles: {
           fillColor: lightBg
