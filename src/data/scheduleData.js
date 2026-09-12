@@ -293,11 +293,11 @@ export const day1Schedule = [
     },
     chairpersons: [
       {
-        name: "Dr Jagadeeswari",
+        name: "Dr V Jagadeeswari",
         designation: "ACMS GOC",
       },
       {
-        name: "Dr Sunil Joshua",
+        name: "Dr D Sunil Joshua",
         designation: "Sr DMO GOC",
       },
     ],

@@ -445,7 +445,7 @@ export const facultyMembers = [
   },
   {
     "id": "f-jagadeeswari",
-    "name": "Dr Jagadeeswari",
+    "name": "Dr V Jagadeeswari",
     "role": "Session Chairperson",
     "designation": "ACMS GOC",
     "institution": "Railway Hospital, Golden Rock (GOC)",
@@ -455,12 +455,12 @@ export const facultyMembers = [
       "Chair: NOVARTIS Symposium on Breast Cancer"
     ],
     "sessionDay": "Day 1 (14:00 to 14:30 hrs)",
-    "avatarText": "JA",
+    "avatarText": "VJ",
     "badgeColor": "bg-blue-500/20 text-blue-300 border-blue-500/40"
   },
   {
     "id": "f-sunil-joshua",
-    "name": "Dr Sunil Joshua",
+    "name": "Dr D Sunil Joshua",
     "role": "Session Chairperson",
     "designation": "Sr DMO GOC",
     "institution": "Railway Hospital, Golden Rock (GOC)",

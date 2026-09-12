@@ -17,7 +17,7 @@ export const sponsorsList = [
     tier: "Industry Symposium",
     sessionTitle: "Industry Sponsored Symposium: NOVARTIS -Breast Cancer Impacting Outcomes with Increased Awareness",
     speaker: "Dr Jeba Singh",
-    chairpersons: "Dr Jagadeeswari, ACMS GOC & Dr Sunil Joshua, Sr DMO GOC",
+    chairpersons: "Dr V Jagadeeswari, ACMS GOC & Dr D Sunil Joshua, Sr DMO GOC",
     schedule: "Day 1 (19th Sept) • 14.00 to 14.30 hrs",
     slNo: 9,
     color: "from-blue-600 to-indigo-600",
